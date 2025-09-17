@@ -1,37 +1,52 @@
-# nextdoc4j-demo
+# NextDoc4j Demo 演示项目
 
-#### 介绍
-nextdoc4j 的演示项目,同时也是 SpringDoc各种接口适配情况的示例项目
+![NextDoc4j Logo](src/main/resources/favicon.ico)
 
-#### 软件架构
-软件架构说明
+## 📖 项目简介
+**NextDoc4j Demo** 是一个演示项目，同时也是 **SpringDoc 各种接口适配情况的示例项目**。
 
+该项目的主要目标是：
 
-#### 安装教程
+1. **展示 NextDoc4j 的基本功能**
+   提供可运行的示例代码，让开发者快速了解 NextDoc4j 的核心用法。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+2. **演示 SpringDoc 接口兼容性与适配情况**
+   包含不同类型接口的示例，展示 SpringDoc 如何与各种注解、返回值、参数类型进行适配。
 
-#### 使用说明
+3. **作为学习与参考示例**
+   开发者可以参考该项目快速上手，或在自己的项目中测试 SpringDoc 接口文档生成效果。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+> ⚡ 本项目仅作演示与示例用途，不建议直接用于生产环境。
 
 
-#### 特技
+**NextDoc4j** 是专为 SpringDoc 和 OpenAPI 3 设计的现代化文档界面，旨在替代传统的 Swagger UI，提供更美观、更强大的开发体验，让 API 文档焕然一新。
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+
+## 📚 相关文档
+
+- [NextDoc4j 官方文档](https://nextdoc4j.top)
+- [SpringDoc 官方文档](https://springdoc.org)
+- [OpenAPI 3 规范](https://swagger.io/specification/)
+- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
+
+## 🤝 贡献指南
+
+1. Fork 本仓库
+2. 创建特性分支：`git checkout -b feature/new-feature`
+3. 提交更改：`git commit -am 'Add new feature'`
+4. 推送分支：`git push origin feature/new-feature`
+5. 提交 Pull Request
+
+## 📄 许可证
+
+本项目采用 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) 许可证。
+
+## 💬 联系我们
+
+- 📧 邮箱：nextdoc4j@163.com
+- 🌐 官网：[https://nextdoc4j.top](https://nextdoc4j.top)
+
+---
+
+**NextDoc4j** - 让 API 文档焕然一新！ 🚀
