@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 8080
+  port: 8000
   servlet:
     # 上下文路径 - 用于测试 NextDoc4j 的路径适配功能
     context-path: /
