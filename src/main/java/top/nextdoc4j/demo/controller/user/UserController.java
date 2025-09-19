@@ -18,6 +18,7 @@ import top.nextdoc4j.demo.enums.ResultCode;
 import top.nextdoc4j.demo.model.base.PageResult;
 import top.nextdoc4j.demo.model.base.R;
 import top.nextdoc4j.demo.model.query.UserQuery;
+import top.nextdoc4j.demo.model.req.RoleReq;
 import top.nextdoc4j.demo.model.req.UserBatchReq;
 import top.nextdoc4j.demo.model.req.UserReq;
 import top.nextdoc4j.demo.model.req.UserUpdateReq;
@@ -49,6 +50,18 @@ public class UserController {
     @Operation(summary = "新增用户", description = "创建一个新的用户账户")
     @PostMapping
     public R<UserResp> createUser(@RequestBody UserReq userReq) {
+        UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
+        userResp.setId(IdUtil.getSnowflakeNextId());
+        userResp.setStatus("ACTIVE");
+        userResp.setCreateTime(LocalDateTime.now());
+        userResp.setUpdateTime(LocalDateTime.now());
+        return R.ok(userResp);
+    }
+
+
+    @Operation(summary = "新增用户和角色", description = "")
+    @PostMapping("/userAndRole")
+    public R<UserResp> createUserAndRole(@RequestBody UserReq userReq, @RequestBody RoleReq roleReq) {
         UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
         userResp.setId(IdUtil.getSnowflakeNextId());
         userResp.setStatus("ACTIVE");
