@@ -165,13 +165,17 @@ public class FileController {
      */
     @Operation(
             summary = "多文件上传（数组模式）",
-            description = "使用数组接收多个文件"
+            description = "使用数组接收多个文件",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(
+                            mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                            schema = @Schema(implementation = MultiFileRequest.class)
+                    )
+            )
     )
     @PostMapping(value = "/upload/batch-array", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R<List<FileUploadResp>> uploadBatchArray(
-            @RequestPart("files")
-            @Parameter(description = "要上传的文件数组", required = true)
-            MultipartFile[] files) {
+            @RequestPart("files") MultipartFile[] files) {
 
         if (files == null || files.length == 0) {
             return R.fail("文件列表不能为空");
@@ -398,5 +402,16 @@ public class FileController {
 
         @Schema(description = "要上传的文件", type = "string", format = "binary", required = true)
         private MultipartFile file;
+    }
+
+    /**
+     * 多文件上传请求 Schema（用于 Swagger 文档生成）
+     */
+    @Data
+    @Schema(description = "多文件上传请求")
+    public static class MultiFileRequest {
+
+        @Schema(description = "要上传的文件列表", type = "array", format = "binary", required = true)
+        private List<MultipartFile> files;
     }
 }

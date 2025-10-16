@@ -55,11 +55,11 @@ public class FileControllerNoHeader {
 
     /**
      * 【推荐】单文件上传 - 使用 @RequestPart
-     *
+     * <p>
      * 适用场景：标准的单文件上传，Swagger UI 友好
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
      */
     @Operation(
             summary = "单文件上传（推荐）",
@@ -79,7 +79,7 @@ public class FileControllerNoHeader {
 
     /**
      * 单文件上传 - 使用 @RequestParam（兼容模式）
-     *
+     * <p>
      * 适用场景：某些旧版本客户端或特殊需求
      * 注意：需要额外配置才能在 Swagger UI 中正确显示
      */
@@ -100,12 +100,12 @@ public class FileControllerNoHeader {
 
     /**
      * 【推荐】多文件上传 - 使用 @RequestPart
-     *
+     * <p>
      * 适用场景：批量文件上传
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   files.forEach(file => formData.append('files', file));
-     *
+     * const formData = new FormData();
+     * files.forEach(file => formData.append('files', file));
+     * <p>
      * 注意：总请求大小受 spring.servlet.multipart.max-request-size 限制
      */
     @Operation(
@@ -153,18 +153,18 @@ public class FileControllerNoHeader {
 
     /**
      * 多文件上传 - 使用数组接收（另一种方式）
-     *
+     * <p>
      * 适用场景：某些框架或客户端使用数组形式
      */
     @Operation(
             summary = "多文件上传（数组模式）",
-            description = "使用数组接收多个文件"
+            description = "使用数组接收多个文件",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = MultiFileRequest.class)))
     )
     @PostMapping(value = "/upload/batch-array")
     public R<List<FileUploadResp>> uploadBatchArray(
-            @RequestPart("files")
-            @Parameter(description = "要上传的文件数组", required = true)
-            MultipartFile[] files) {
+            @RequestPart("files") MultipartFile[] files) {
 
         if (files == null || files.length == 0) {
             return R.fail("文件列表不能为空");
@@ -181,13 +181,13 @@ public class FileControllerNoHeader {
 
     /**
      * 文件 + 表单参数混合上传
-     *
+     * <p>
      * 适用场景：上传文件的同时需要传递其他业务参数
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
-     *   formData.append('category', 'avatar');
-     *   formData.append('description', '用户头像');
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
+     * formData.append('category', 'avatar');
+     * formData.append('description', '用户头像');
      */
     @Operation(
             summary = "文件 + 参数混合上传",
@@ -218,12 +218,12 @@ public class FileControllerNoHeader {
 
     /**
      * 文件 + JSON 参数混合上传
-     *
+     * <p>
      * 适用场景：需要传递复杂对象参数
      * 前端示例：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
-     *   formData.append('metadata', JSON.stringify({category: 'avatar', tags: ['user', 'profile']}));
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
+     * formData.append('metadata', JSON.stringify({category: 'avatar', tags: ['user', 'profile']}));
      */
     @Operation(
             summary = "文件 + JSON 参数混合上传",
@@ -391,5 +391,16 @@ public class FileControllerNoHeader {
 
         @Schema(description = "要上传的文件", type = "string", format = "binary", required = true)
         private MultipartFile file;
+    }
+
+    /**
+     * 多文件上传请求 Schema（用于 Swagger 文档生成）
+     */
+    @Data
+    @Schema(description = "多文件上传请求")
+    public static class MultiFileRequest {
+
+        @Schema(description = "要上传的文件列表", type = "array", format = "binary", required = true)
+        private List<MultipartFile> files;
     }
 }
