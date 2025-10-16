@@ -45,13 +45,11 @@ import java.util.List;
  * @author Your Name
  */
 @Slf4j
-@Tag(name = "文件管理", description = "文件上传、下载相关接口")
+@Tag(name = "文件管理（无请求头）", description = "文件上传与下载接口，不要求任何请求头")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/file")
-public class FileController {
-
-
+@RequestMapping("/api/simple-file")
+public class FileControllerNoHeader {
 
     // ==================== 单文件上传 ====================
 
@@ -68,7 +66,7 @@ public class FileController {
             description = "使用 @RequestPart 上传单个文件，推荐方式，Swagger UI 支持良好"
     )
     @ApiResponse(responseCode = "200", description = "上传成功")
-    @PostMapping(value = "/upload/single", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/single")
     public R<FileUploadResp> uploadSingle(
             @RequestPart("file")
             @Parameter(description = "要上传的文件", required = true)
@@ -88,14 +86,9 @@ public class FileController {
     @Operation(
             summary = "单文件上传（兼容模式）",
             description = "使用 @RequestParam 上传单个文件，兼容旧版本客户端",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(
-                            mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
-                            schema = @Schema(implementation = SingleFileRequest.class)
-                    )
-            )
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(schema = @Schema(implementation = FileController.SingleFileRequest.class)))
     )
-    @PostMapping(value = "/upload/single-compat", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/single-compat")
     public R<FileUploadResp> uploadSingleCompat(
             @RequestParam("file") MultipartFile file) {
 
@@ -120,7 +113,7 @@ public class FileController {
             description = "使用 @RequestPart 批量上传文件（单文件最大 5MB，总请求最大 10MB）"
     )
     @ApiResponse(responseCode = "200", description = "上传成功")
-    @PostMapping(value = "/upload/batch", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/batch")
     public R<List<FileUploadResp>> uploadBatch(
             @RequestPart("files")
             @Parameter(description = "要上传的文件列表", required = true)
@@ -143,7 +136,7 @@ public class FileController {
             summary = "多文件上传（兼容模式）",
             description = "使用 @RequestParam 批量上传文件"
     )
-    @PostMapping(value = "/upload/batch-compat", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/batch-compat")
     public R<List<FileUploadResp>> uploadBatchCompat(
             @RequestParam("files")
             @Parameter(description = "要上传的文件列表", required = true)
@@ -167,7 +160,7 @@ public class FileController {
             summary = "多文件上传（数组模式）",
             description = "使用数组接收多个文件"
     )
-    @PostMapping(value = "/upload/batch-array", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/batch-array")
     public R<List<FileUploadResp>> uploadBatchArray(
             @RequestPart("files")
             @Parameter(description = "要上传的文件数组", required = true)
@@ -200,7 +193,7 @@ public class FileController {
             summary = "文件 + 参数混合上传",
             description = "上传文件的同时提交其他表单参数"
     )
-    @PostMapping(value = "/upload/with-params", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/with-params")
     public R<FileUploadResp> uploadWithParams(
             @RequestPart("file")
             @Parameter(description = "要上传的文件", required = true)
@@ -236,7 +229,7 @@ public class FileController {
             summary = "文件 + JSON 参数混合上传",
             description = "上传文件 + JSON 格式的元数据"
     )
-    @PostMapping(value = "/upload/with-json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload/with-json")
     public R<FileUploadResp> uploadWithJson(
             @RequestPart("file")
             @Parameter(description = "要上传的文件", required = true)
