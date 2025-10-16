@@ -2,7 +2,6 @@ package top.nextdoc4j.demo.controller.file;
 
 import cn.hutool.core.util.IdUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +41,13 @@ public class FileController {
 
     @Operation(summary = "批量文件上传（带 consumes）", description = "批量上传文件，明确使用 multipart/form-data")
     @PostMapping(value = "/batch-with-multipart", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<List<FileUploadResp>> uploadBatchWithMultipart(@RequestParam("files") @Schema(description = "要上传的文件列表") List<MultipartFile> files) {
+    public R<List<FileUploadResp>> uploadBatchWithMultipart(@RequestPart("files") @Schema(description = "要上传的文件列表") List<MultipartFile> files) {
         return R.ok(files.stream().map(file -> buildFileUploadResp(file, "files")).toList());
     }
 
     @Operation(summary = "批量文件上传（不带 consumes）", description = "批量上传文件，不指定 consumes")
     @PostMapping("/batch")
-    public R<List<FileUploadResp>> uploadBatch(@RequestParam("files") @Schema(description = "要上传的文件列表") List<MultipartFile> files) {
+    public R<List<FileUploadResp>> uploadBatch(@RequestPart("files") @Schema(description = "要上传的文件列表") List<MultipartFile> files) {
         return R.ok(files.stream().map(file -> buildFileUploadResp(file, "files")).toList());
     }
 
