@@ -86,7 +86,7 @@ public class FileControllerNoHeader {
     @Operation(
             summary = "单文件上传（兼容模式）",
             description = "使用 @RequestParam 上传单个文件，兼容旧版本客户端",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(schema = @Schema(implementation = FileController.SingleFileRequest.class)))
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(schema = @Schema(implementation = FileControllerNoHeader.SingleFileRequest.class)))
     )
     @PostMapping(value = "/upload/single-compat")
     public R<FileUploadResp> uploadSingleCompat(
@@ -134,13 +134,16 @@ public class FileControllerNoHeader {
      */
     @Operation(
             summary = "多文件上传（兼容模式）",
-            description = "使用 @RequestParam 批量上传文件"
+            description = "使用 @RequestParam 批量上传文件",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(
+                            schema = @Schema(implementation = FileController.MultiFileRequest.class)
+                    )
+            )
     )
     @PostMapping(value = "/upload/batch-compat")
     public R<List<FileUploadResp>> uploadBatchCompat(
-            @RequestParam("files")
-            @Parameter(description = "要上传的文件列表", required = true)
-            List<MultipartFile> files) {
+            @RequestParam("files") List<MultipartFile> files) {
 
         validateFiles(files);
 
@@ -158,9 +161,7 @@ public class FileControllerNoHeader {
      */
     @Operation(
             summary = "多文件上传（数组模式）",
-            description = "使用数组接收多个文件",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(implementation = MultiFileRequest.class)))
+            description = "使用数组接收多个文件"
     )
     @PostMapping(value = "/upload/batch-array")
     public R<List<FileUploadResp>> uploadBatchArray(

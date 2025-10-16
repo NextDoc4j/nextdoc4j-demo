@@ -141,13 +141,17 @@ public class FileController {
      */
     @Operation(
             summary = "多文件上传（兼容模式）",
-            description = "使用 @RequestParam 批量上传文件"
+            description = "使用 @RequestParam 批量上传文件",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(
+                            mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                            schema = @Schema(implementation = MultiFileRequest.class)
+                    )
+            )
     )
     @PostMapping(value = "/upload/batch-compat", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R<List<FileUploadResp>> uploadBatchCompat(
-            @RequestParam("files")
-            @Parameter(description = "要上传的文件列表", required = true)
-            List<MultipartFile> files) {
+            @RequestParam("files") List<MultipartFile> files) {
 
         validateFiles(files);
 
@@ -158,6 +162,7 @@ public class FileController {
         return R.ok(responses);
     }
 
+
     /**
      * 多文件上传 - 使用数组接收（另一种方式）
      *
@@ -165,13 +170,7 @@ public class FileController {
      */
     @Operation(
             summary = "多文件上传（数组模式）",
-            description = "使用数组接收多个文件",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(
-                            mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
-                            schema = @Schema(implementation = MultiFileRequest.class)
-                    )
-            )
+            description = "使用数组接收多个文件"
     )
     @PostMapping(value = "/upload/batch-array", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R<List<FileUploadResp>> uploadBatchArray(
