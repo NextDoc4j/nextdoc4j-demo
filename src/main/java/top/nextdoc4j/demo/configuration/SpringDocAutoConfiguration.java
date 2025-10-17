@@ -138,6 +138,16 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi authApi() {
+        return GroupedOpenApi.builder()
+                .group("auth")
+                .displayName(" 认证管理 API")
+                .packagesToScan("top.nextdoc4j.demo.controller.auth")
+                .addOpenApiCustomizer(getCustomizer("认证管理相关接口"))
+                .build();
+    }
+
     /**
      * 获取自定义配置器
      */
