@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>3.4.8</spring-boot.version>
-        <nextdoc4j.version>1.0.0</nextdoc4j.version>
+        <nextdoc4j.version>1.0.1</nextdoc4j.version>
         <hutool.version>5.8.38</hutool.version>
     </properties>
 
