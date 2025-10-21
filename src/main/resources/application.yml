@@ -1,9 +1,6 @@
 # 端口
 server:
   port: 8000
-  servlet:
-    # 上下文路径 - 用于测试 NextDoc4j 的路径适配功能
-    context-path: /
 
 # 项目基础配置
 project:
@@ -74,11 +71,16 @@ springdoc:
         name: Authorization
         scheme: Bearer
         description: "请输入 Bearer Token，格式：Bearer {token}"
-      ApiKey:
+      ApiKeyHeader:
         type: APIKEY
         in: HEADER
         name: X-API-Key
-        description: "API 密钥认证"
+        description: "API 密钥认证 - 请求头"
+      ApiKeyQuery:
+        type: APIKEY
+        in: query
+        name: X-API-Key
+        description: "API 密钥认证 - 查询参数"
 
 # nextdoc4j 配置
 nextdoc4j:

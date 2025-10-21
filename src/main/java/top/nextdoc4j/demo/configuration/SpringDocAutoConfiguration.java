@@ -4,15 +4,9 @@ package top.nextdoc4j.demo.configuration;
 import cn.hutool.core.map.MapUtil;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
-import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.responses.ApiResponse;
-import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
@@ -25,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.nextdoc4j.demo.configuration.properties.ProjectProperties;
-import top.nextdoc4j.demo.enums.ResultCode;
 
 import java.util.List;
 import java.util.Map;
@@ -94,11 +87,7 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
                         Map<String, SecurityScheme> securitySchemeMap = components.getSecuritySchemes();
                         pathItem.readOperations().forEach(operation -> {
                             SecurityRequirement securityRequirement = new SecurityRequirement();
-                            List<String> list = securitySchemeMap.values()
-                                    .stream()
-                                    .map(SecurityScheme::getName)
-                                    .toList();
-                            list.forEach(securityRequirement::addList);
+                            securitySchemeMap.keySet().forEach(securityRequirement::addList);
                             operation.addSecurityItem(securityRequirement);
                         });
                     }
@@ -113,7 +102,7 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
         return GroupedOpenApi.builder()
                 .group("account")
                 .displayName("用户与角色管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.user","top.nextdoc4j.demo.controller.role")
+                .packagesToScan("top.nextdoc4j.demo.controller.user", "top.nextdoc4j.demo.controller.role")
                 .addOpenApiCustomizer(getCustomizer("用户与角色管理相关接口"))
                 .build();
     }
@@ -123,7 +112,7 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
         return GroupedOpenApi.builder()
                 .group("system")
                 .displayName("系统管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.system","top.nextdoc4j.demo.controller.notification")
+                .packagesToScan("top.nextdoc4j.demo.controller.system", "top.nextdoc4j.demo.controller.notification")
                 .addOpenApiCustomizer(getCustomizer("系统管理相关接口"))
                 .build();
     }
