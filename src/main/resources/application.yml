@@ -100,7 +100,7 @@ nextdoc4j:
     brand:
       title: NextDoc4j Demo
       logo: classpath:/favicon.ico
-      footer-text: "Copyright © 2025 - [NextDoc4j](https://nextdoc4j.top) All Rights Reserved. | Powered by Spring Boot ${spring-boot.version}"
+      footer-text: "Copyright © 2025 - [NextDoc4j](https://nextdoc4j.top) All Rights Reserved.
 
     # markdown 配置 - 用于展示更新日志等文档
     markdown:
