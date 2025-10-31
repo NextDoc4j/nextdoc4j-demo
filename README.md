@@ -1,6 +1,22 @@
-# NextDoc4j Demo 演示项目
+<p align="center">
+  <img src="src/main/resources/favicon.ico" alt="Nextdoc4j Logo" width="180">
+</p>
 
-![NextDoc4j Logo](src/main/resources/favicon.ico)
+<h1 align="center">Nextdoc4j</h1>
+
+<p align="center">
+  <strong>🚀 现代化的 API 文档后端解决方案</strong><br>
+  基于 <strong>SpringBoot 3.4.x</strong> + <strong>SpringDoc</strong> 构建，替代 Swagger UI，<br>
+  提供更美观、更强大的开发体验，让 API 文档焕然一新。
+</p>
+
+<p align="center">
+  🌐 <a href="https://demo.nextdoc4j.top/">在线演示</a> |
+  📘 <a href="https://nextdoc4j.top/">官方文档</a> |
+  🧩 <a href="https://nextdoc4j.top/more/changelog.html">更新日志</a> |
+  ❓ <a href="https://nextdoc4j.top/more/faq.html">常见问题</a>
+</p>
+
 
 ## 📖 项目简介
 **NextDoc4j Demo** 是一个演示项目，同时也是 **SpringDoc 各种接口适配情况的示例项目**。
@@ -17,18 +33,6 @@
    开发者可以参考该项目快速上手，或在自己的项目中测试 SpringDoc 接口文档生成效果。
 
 > ⚡ 本项目仅作演示与示例用途，不建议直接用于生产环境。
-
-
-**NextDoc4j** 是专为 SpringDoc 和 OpenAPI 3 设计的现代化文档界面，旨在替代传统的 Swagger UI，提供更美观、更强大的开发体验，让 API 文档焕然一新。
-
-
-
-## 📚 相关文档
-
-- [NextDoc4j 官方文档](https://nextdoc4j.top)
-- [SpringDoc 官方文档](https://springdoc.org)
-- [OpenAPI 3 规范](https://swagger.io/specification/)
-- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
 
 ## 🤝 贡献指南
 
