@@ -5,14 +5,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.nextdoc4j.demo.enums.ResultCode;
 import top.nextdoc4j.demo.model.base.PageResult;
@@ -22,7 +20,6 @@ import top.nextdoc4j.demo.model.req.RoleReq;
 import top.nextdoc4j.demo.model.req.UserBatchReq;
 import top.nextdoc4j.demo.model.req.UserReq;
 import top.nextdoc4j.demo.model.req.UserUpdateReq;
-import top.nextdoc4j.demo.model.resp.FileUploadResp;
 import top.nextdoc4j.demo.model.resp.UserResp;
 
 import java.io.IOException;
@@ -70,9 +67,27 @@ public class UserController {
         return R.ok(userResp);
     }
 
-    @Operation(summary = "批量新增用户", description = "批量创建多个用户账户")
-    @PostMapping("/batch")
-    public R<List<UserResp>> createUsersBatch(@RequestBody UserBatchReq batchReq) {
+    /**
+     * 批量新增用户（对象包装方式）
+     * <p>
+     * 示例请求体：
+     * {
+     * "users": [
+     * { "username": "Alice", "email": "alice@test.com" },
+     * { "username": "Bob", "email": "bob@test.com" }
+     * ]
+     * }
+     */
+    @Operation(
+            summary = "批量新增用户（对象包装）",
+            description = """
+                    批量创建多个用户账户。
+                    入参使用对象封装格式（UserBatchReq），包含一个 users 列表字段。
+                    适合在请求中需要附带额外元数据时使用（如操作人、来源等）。
+                    """
+    )
+    @PostMapping("/batch-object")
+    public R<List<UserResp>> createUsersBatchByObject(@RequestBody UserBatchReq batchReq) {
         List<UserResp> users = batchReq.getUsers().stream()
                 .map(userReq -> {
                     UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
@@ -85,6 +100,39 @@ public class UserController {
                 .toList();
         return R.ok(users);
     }
+
+    /**
+     * 批量新增用户（直接数组方式）
+     * <p>
+     * 示例请求体：
+     * [
+     * { "username": "Alice", "email": "alice@test.com" },
+     * { "username": "Bob", "email": "bob@test.com" }
+     * ]
+     */
+    @Operation(
+            summary = "批量新增用户（直接数组）",
+            description = """
+                    批量创建多个用户账户。
+                    入参为用户对象数组，适用于简洁的前端批量创建请求。
+                    与 /batch-object 功能一致，仅请求结构不同。
+                    """
+    )
+    @PostMapping("/batch-array")
+    public R<List<UserResp>> createUsersBatchByArray(@RequestBody List<UserReq> batchReq) {
+        List<UserResp> users = batchReq.stream()
+                .map(userReq -> {
+                    UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
+                    userResp.setId(IdUtil.getSnowflakeNextId());
+                    userResp.setStatus("ACTIVE");
+                    userResp.setCreateTime(LocalDateTime.now());
+                    userResp.setUpdateTime(LocalDateTime.now());
+                    return userResp;
+                })
+                .toList();
+        return R.ok(users);
+    }
+
 
     @Operation(summary = "根据ID查询用户", description = "通过用户ID获取用户详细信息")
     @GetMapping("/{id}")
