@@ -60,12 +60,10 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
         Components components = properties.getComponents();
         if (null != components) {
             openApi.components(components);
-            // 鉴权配置
             Map<String, SecurityScheme> securitySchemeMap = components.getSecuritySchemes();
             if (MapUtil.isNotEmpty(securitySchemeMap)) {
                 SecurityRequirement securityRequirement = new SecurityRequirement();
-                List<String> list = securitySchemeMap.values().stream().map(SecurityScheme::getName).toList();
-                list.forEach(securityRequirement::addList);
+                securitySchemeMap.keySet().forEach(securityRequirement::addList);
                 openApi.addSecurityItem(securityRequirement);
             }
         }
