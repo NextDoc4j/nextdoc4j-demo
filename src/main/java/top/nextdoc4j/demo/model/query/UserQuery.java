@@ -1,6 +1,8 @@
 package top.nextdoc4j.demo.model.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 @Data
@@ -14,8 +16,11 @@ public class UserQuery {
     private String email;
 
     @Schema(description = "当前页码，默认1", example = "1")
+    @Max(value = 100)
+    @Min(value = 1)
     private Integer pageNum = 1;
 
     @Schema(description = "每页记录数，默认10", example = "10")
+    @Max(value = 1000)
     private Integer pageSize = 10;
 }

@@ -6,6 +6,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -136,7 +137,7 @@ public class UserController {
 
     @Operation(summary = "根据ID查询用户", description = "通过用户ID获取用户详细信息")
     @GetMapping("/{id}")
-    public ResponseEntity<R<UserResp>> getUserById(@PathVariable Long id) {
+    public ResponseEntity<R<UserResp>> getUserById(@PathVariable @Max(value = 999L,message = "id 不能大于 999") Long id) {
         if (id <= 0) {
             return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
         }
