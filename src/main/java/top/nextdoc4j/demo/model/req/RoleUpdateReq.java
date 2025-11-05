@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import top.nextdoc4j.demo.enums.RoleStatusType;
 
 @Data
 @Schema(description = "角色更新请求参数")
@@ -24,9 +25,9 @@ public class RoleUpdateReq {
     @Schema(description = "角色描述", example = "系统管理员角色")
     private String description;
 
-    @Pattern(regexp = "^(ACTIVE|INACTIVE)$")
-    @Schema(description = "角色状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE"})
-    private String status;
+    @Pattern(regexp = "^([1|2])$")
+    @Schema(description = "角色状态", example = "1")
+    private RoleStatusType status;
 
     @Min(1)
     @Max(999)

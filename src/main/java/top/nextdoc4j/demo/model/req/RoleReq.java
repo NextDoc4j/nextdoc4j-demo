@@ -3,6 +3,7 @@ package top.nextdoc4j.demo.model.req;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import top.nextdoc4j.demo.enums.RoleStatusType;
 
 /**
  * 角色要求
@@ -29,9 +30,8 @@ public class RoleReq {
     @Schema(description = "角色描述", example = "系统管理员角色")
     private String description;
 
-    @Pattern(regexp = "^(ACTIVE|INACTIVE)$")
-    @Schema(description = "角色状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE"})
-    private String status = "ACTIVE";
+    @Schema(description = "角色状态", example = "1")
+    private RoleStatusType status;
 
     @Min(1)
     @Max(999)

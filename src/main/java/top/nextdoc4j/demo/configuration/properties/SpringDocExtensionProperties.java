@@ -1,4 +1,4 @@
-package top.nextdoc4j.demo.configuration;
+package top.nextdoc4j.demo.configuration.properties;
 
 import io.swagger.v3.oas.models.Components;
 import lombok.Data;

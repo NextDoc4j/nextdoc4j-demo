@@ -3,6 +3,7 @@ package top.nextdoc4j.demo.model.req;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import top.nextdoc4j.demo.enums.StatusType;
 
 @Data
 @Schema(description = "用户更新请求参数")
@@ -26,6 +27,6 @@ public class UserUpdateReq {
     private String phone;
 
     @Pattern(regexp = "^(ACTIVE|INACTIVE|PENDING)$")
-    @Schema(description = "用户状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE", "PENDING"})
-    private String status;
+    @Schema(description = "用户状态", example = "ACTIVE")
+    private StatusType status;
 }

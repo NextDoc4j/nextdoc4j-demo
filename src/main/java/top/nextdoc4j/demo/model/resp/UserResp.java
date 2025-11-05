@@ -2,6 +2,7 @@ package top.nextdoc4j.demo.model.resp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import top.nextdoc4j.demo.enums.StatusType;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +27,7 @@ public class UserResp {
     private String phone;
 
     @Schema(description = "用户状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE", "PENDING"})
-    private String status;
+    private StatusType status;
 
     @Schema(description = "创建时间", example = "2024-01-01T12:00:00")
     private LocalDateTime createTime;

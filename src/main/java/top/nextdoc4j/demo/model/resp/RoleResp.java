@@ -2,6 +2,7 @@ package top.nextdoc4j.demo.model.resp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import top.nextdoc4j.demo.enums.RoleStatusType;
 
 import java.time.LocalDateTime;
 
@@ -21,8 +22,8 @@ public class RoleResp {
     @Schema(description = "角色描述", example = "系统管理员角色")
     private String description;
 
-    @Schema(description = "角色状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE"})
-    private String status;
+    @Schema(description = "角色状态", example = "1")
+    private RoleStatusType status;
 
     @Schema(description = "排序号", example = "1")
     private Integer sort;

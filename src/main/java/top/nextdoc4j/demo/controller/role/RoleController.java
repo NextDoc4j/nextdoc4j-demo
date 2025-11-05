@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.enums.ResultCode;
+import top.nextdoc4j.demo.enums.RoleStatusType;
 import top.nextdoc4j.demo.model.base.PageResult;
 import top.nextdoc4j.demo.model.base.R;
 import top.nextdoc4j.demo.model.query.RoleQuery;
@@ -62,7 +63,7 @@ public class RoleController {
         role.setName("role_" + id);
         role.setCode("ROLE_" + id);
         role.setDescription("角色" + id + "的描述");
-        role.setStatus("ACTIVE");
+        role.setStatus(RoleStatusType.ACTIVE);
         role.setSort(id.intValue());
         role.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
         role.setUpdateTime(LocalDateTime.now());
@@ -81,7 +82,7 @@ public class RoleController {
             role.setName("role_" + roleId);
             role.setCode("ROLE_" + roleId);
             role.setDescription("角色" + roleId + "的描述信息");
-            role.setStatus(RandomUtil.randomEle(List.of("ACTIVE", "INACTIVE")));
+            role.setStatus(RandomUtil.randomEle(List.of(RoleStatusType.ACTIVE, RoleStatusType.INACTIVE)));
             role.setSort((int) roleId);
             role.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 365)));
             role.setUpdateTime(LocalDateTime.now());
@@ -111,7 +112,7 @@ public class RoleController {
             role.setName(roleNames[i]);
             role.setCode(roleCodes[i]);
             role.setDescription(roleNames[i] + "角色");
-            role.setStatus("ACTIVE");
+            role.setStatus(RoleStatusType.ACTIVE);
             role.setSort(i + 1);
             role.setCreateTime(LocalDateTime.now().minusDays(100));
             role.setUpdateTime(LocalDateTime.now());
@@ -242,7 +243,7 @@ public class RoleController {
         role.setName("role_" + id);
         role.setCode("ROLE_" + id);
         role.setDescription("角色" + id + "的描述");
-        role.setStatus("INACTIVE"); // 切换状态
+        role.setStatus(RoleStatusType.INACTIVE); // 切换状态
         role.setSort(id.intValue());
         role.setCreateTime(LocalDateTime.now().minusDays(30));
         role.setUpdateTime(LocalDateTime.now());

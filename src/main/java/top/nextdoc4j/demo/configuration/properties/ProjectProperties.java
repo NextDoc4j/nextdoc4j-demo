@@ -4,9 +4,11 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * 项目属性
+ *
  * @author echo
- * @since 2025/09/15 15:10
- **/
+ * @date 2025/11/05
+ */
 @Data
 @ConfigurationProperties("project")
 public class ProjectProperties {

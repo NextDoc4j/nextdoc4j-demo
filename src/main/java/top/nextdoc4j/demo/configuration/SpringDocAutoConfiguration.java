@@ -2,6 +2,7 @@ package top.nextdoc4j.demo.configuration;
 
 
 import cn.hutool.core.map.MapUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -19,8 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.nextdoc4j.demo.configuration.properties.ProjectProperties;
+import top.nextdoc4j.demo.configuration.properties.SpringDocExtensionProperties;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,6 +93,17 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
                 });
             }
         };
+    }
+
+    /**
+     * 自定义 BaseEnum 枚举参数配置（针对实现了 BaseEnum 的枚举，优化其枚举值和描述展示）
+     *
+     * @return {@link BaseEnumParameterHandler }
+     * @since 2.4.0
+     */
+    @Bean
+    public BaseEnumParameterHandler customParameterCustomizer(ObjectMapper mapper) {
+        return new BaseEnumParameterHandler(mapper);
     }
 
 

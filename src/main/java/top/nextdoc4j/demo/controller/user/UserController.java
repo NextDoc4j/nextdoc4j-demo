@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.nextdoc4j.demo.enums.ResultCode;
+import top.nextdoc4j.demo.enums.StatusType;
 import top.nextdoc4j.demo.model.base.PageResult;
 import top.nextdoc4j.demo.model.base.R;
 import top.nextdoc4j.demo.model.query.UserQuery;
@@ -50,7 +51,7 @@ public class UserController {
     public R<UserResp> createUser(@RequestBody UserReq userReq) {
         UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
         userResp.setId(IdUtil.getSnowflakeNextId());
-        userResp.setStatus("ACTIVE");
+        userResp.setStatus(StatusType.ACTIVE);
         userResp.setCreateTime(LocalDateTime.now());
         userResp.setUpdateTime(LocalDateTime.now());
         return R.ok(userResp);
@@ -62,7 +63,7 @@ public class UserController {
     public R<UserResp> createUserAndRole(@RequestBody UserReq userReq, @RequestBody RoleReq roleReq) {
         UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
         userResp.setId(IdUtil.getSnowflakeNextId());
-        userResp.setStatus("ACTIVE");
+        userResp.setStatus(StatusType.ACTIVE);
         userResp.setCreateTime(LocalDateTime.now());
         userResp.setUpdateTime(LocalDateTime.now());
         return R.ok(userResp);
@@ -93,7 +94,7 @@ public class UserController {
                 .map(userReq -> {
                     UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
                     userResp.setId(IdUtil.getSnowflakeNextId());
-                    userResp.setStatus("ACTIVE");
+                    userResp.setStatus(StatusType.ACTIVE);
                     userResp.setCreateTime(LocalDateTime.now());
                     userResp.setUpdateTime(LocalDateTime.now());
                     return userResp;
@@ -125,7 +126,7 @@ public class UserController {
                 .map(userReq -> {
                     UserResp userResp = BeanUtil.copyProperties(userReq, UserResp.class);
                     userResp.setId(IdUtil.getSnowflakeNextId());
-                    userResp.setStatus("ACTIVE");
+                    userResp.setStatus(StatusType.ACTIVE);
                     userResp.setCreateTime(LocalDateTime.now());
                     userResp.setUpdateTime(LocalDateTime.now());
                     return userResp;
@@ -153,7 +154,7 @@ public class UserController {
         user.setEmail("user" + id + "@nextdoc4j.top");
         user.setAge(25);
         user.setPhone("138" + String.format("%08d", id));
-        user.setStatus("ACTIVE");
+        user.setStatus(StatusType.ACTIVE);
         user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
         user.setUpdateTime(LocalDateTime.now());
 
@@ -172,7 +173,7 @@ public class UserController {
             user.setEmail("user" + userId + "@nextdoc4j.top");
             user.setAge(RandomUtil.randomInt(18, 65));
             user.setPhone("138" + String.format("%08d", userId));
-            user.setStatus(RandomUtil.randomEle(List.of("ACTIVE", "INACTIVE", "PENDING")));
+            user.setStatus(RandomUtil.randomEle(List.of(StatusType.ACTIVE, StatusType.INACTIVE, StatusType.PENDING)));
             user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 365)));
             user.setUpdateTime(LocalDateTime.now());
             users.add(user);
@@ -248,7 +249,7 @@ public class UserController {
                     user.setUsername("sse_user_" + i);
                     user.setEmail("sse_user" + i + "@nextdoc4j.top");
                     user.setAge(RandomUtil.randomInt(18, 65));
-                    user.setStatus("ACTIVE");
+                    user.setStatus(StatusType.ACTIVE);
                     user.setCreateTime(LocalDateTime.now());
                     user.setUpdateTime(LocalDateTime.now());
 
@@ -300,7 +301,7 @@ public class UserController {
         user.setEmail("user" + id + "@nextdoc4j.top");
         user.setAge(25);
         user.setPhone("138" + String.format("%08d", id));
-        user.setStatus("INACTIVE"); // 切换状态
+        user.setStatus(StatusType.ACTIVE); // 切换状态
         user.setCreateTime(LocalDateTime.now().minusDays(30));
         user.setUpdateTime(LocalDateTime.now());
 

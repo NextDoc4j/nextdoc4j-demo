@@ -1,4 +1,4 @@
-package top.nextdoc4j.demo.configuration;
+package top.nextdoc4j.demo.configuration.exception;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.text.CharSequenceUtil;
