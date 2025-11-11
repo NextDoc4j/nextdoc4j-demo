@@ -17,6 +17,7 @@
         <spring-boot.version>3.5.6</spring-boot.version>
         <nextdoc4j.version>1.1.0</nextdoc4j.version>
         <hutool.version>5.8.41</hutool.version>
+        <sa-token.version>1.44.0</sa-token.version>
     </properties>
 
     <!-- 依赖 -->
@@ -53,6 +54,19 @@
             <optional>true</optional> <!-- 表示依赖不会被传递 -->
         </dependency>
 
+
+        <!-- Sa-Token（轻量级 Java 权限认证框架，让鉴权变得简单、优雅） -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
@@ -85,11 +99,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <!--hutool 管理-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-bom</artifactId>
                 <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Sa-Token（轻量级 Java 权限认证框架，让鉴权变得简单、优雅） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-bom</artifactId>
+                <version>${sa-token.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
