@@ -55,7 +55,7 @@ nextdoc4j-demo
 ### 环境要求
 
 - JDK 17 或更高版本
-- Maven 3.6+ 或 Gradle 7+
+- Maven 3.6+
 - IDE 支持（IntelliJ IDEA, Eclipse, VS Code 等）
 
 ### 运行 Spring Boot 单体应用
