@@ -1,0 +1,72 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: user-service
+
+  cloud:
+    nacos:
+      # nacos 服务地址
+      server-addr: 123.60.23.5:60008
+      username: nacos
+      password: nacos
+      discovery:
+        # 注册组
+        group: DEFAULT_GROUP
+        namespace: public
+      config:
+        enabled: false
+        import-check:
+          enabled: false
+
+# SpringDoc 配置
+springdoc:
+  default-flat-param-object: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+# nextdoc4j 配置
+nextdoc4j:
+  # 是否启用
+  enabled: true
+  # 生产环境配置
+  production: false
+  # 扩展配置
+  extension:
+    # 是否启用
+    enabled: true
+    # 品牌信息
+    brand:
+      title: NextDoc4j Demo
+      logo: classpath:/favicon.ico
+      footer-text: "Copyright © 2025 - [NextDoc4j](https://nextdoc4j.top) All Rights Reserved."
+
+
+
+
+# 日志配置
+logging:
+  level:
+    top.nextdoc4j.demo: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+
+# 项目基础配置
+project:
+  name: NextDoc4j 演示 - 用户和角色服务
+  version: 1.1.1
+  description: 专为 SpringDoc 和 OpenAPI 3 设计的现代化文档界面，替代 Swagger UI，提供更美观、更强大的开发体验。让 API 文档焕然一新。这个演示项目展示了完整的 CRUD 操作、文件上传、SSE 推送、批量操作等各种场景。
+
+  contact:
+    name: echo
+    email: nextdoc4j@163.com
+    url: https://nextdoc4j.top/
+
+  license:
+    name: Apache License 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html

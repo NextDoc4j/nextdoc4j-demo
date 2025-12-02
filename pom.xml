@@ -6,83 +6,37 @@
 
     <groupId>top.nextdoc4j</groupId>
     <artifactId>nextdoc4j-demo</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
     <name>nextdoc4j-demo</name>
     <description>nextdoc4j 集成示例</description>
 
+    <modules>
+        <module>nextdoc4j-demo-common</module>
+        <module>nextdoc4j-demo-springboot</module>
+        <module>nextdoc4j-demo-springcloud-gateway</module>
+    </modules>
+
     <properties>
+        <revision>1.0.0</revision>
         <java.version>17</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>3.5.6</spring-boot.version>
+        <spring-boot.version>3.5.7</spring-boot.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
         <nextdoc4j.version>1.1.1</nextdoc4j.version>
         <hutool.version>5.8.41</hutool.version>
         <sa-token.version>1.44.0</sa-token.version>
+        <spring-cloud-alibaba.version>2023.0.3.4</spring-cloud-alibaba.version>
+        <nacos.client.version>2.5.1</nacos.client.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <!-- 依赖 -->
-    <dependencies>
-        <!-- Web 基础依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Nextdoc4j 集成 -->
-        <dependency>
-            <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-springboot3-starter</artifactId>
-        </dependency>
-
-        <!--校验-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
-        <!-- 单元测试 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Lombok（在 Java 开发过程中用注解的方式，简化了 JavaBean 的编写，避免了冗余和样板式代码，让编写的类更加简洁） -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional> <!-- 表示依赖不会被传递 -->
-        </dependency>
-
-
-        <!-- Sa-Token（轻量级 Java 权限认证框架，让鉴权变得简单、优雅） -->
-        <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-spring-boot3-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
-
-    <!-- 依赖管理 -->
+    <!-- 依赖版本统一管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot BOM 管理 -->
+
+            <!-- Spring Boot BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -91,7 +45,16 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--nextdoc4j - bom 管理-->
+            <!-- Spring Cloud BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- nextdoc4j BOM -->
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
                 <artifactId>nextdoc4j-dependencies</artifactId>
@@ -99,7 +62,37 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--hutool 管理-->
+
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-log4j2-adapter</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-logback-adapter-12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>logback-adapter</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <!-- Hutool -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-bom</artifactId>
@@ -108,7 +101,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Sa-Token（轻量级 Java 权限认证框架，让鉴权变得简单、优雅） -->
+            <!-- Sa-Token -->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-bom</artifactId>
@@ -117,73 +110,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-common</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <!-- 编译插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <release>${java.version}</release>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-
-            <!-- Spring Boot 打包插件 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- 单元测试插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-
-            <!-- 统一版本号插件 -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten-clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
