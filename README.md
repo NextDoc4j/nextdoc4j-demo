@@ -90,7 +90,7 @@ cd nextdoc4j-demo-springcloud-gateway/modules/file-service
 mvn spring-boot:run
 ```
 
-访问地址：http://localhost:9000/doc.html
+访问地址：http://localhost:9000/<网关配置的业务系统地址>/doc.html
 
 ## 📁 模块说明
 
