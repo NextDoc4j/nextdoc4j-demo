@@ -20,7 +20,10 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("account")
                 .displayName("用户与角色管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.user", "top.nextdoc4j.demo.controller.role")
+                .packagesToScan(
+                        "top.nextdoc4j.demo.springboot.controller.user",
+                        "top.nextdoc4j.demo.springboot.controller.role"
+                )
                 .addOpenApiCustomizer(getCustomizer("用户与角色管理相关接口"))
                 .build();
     }
@@ -30,7 +33,10 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("system")
                 .displayName("系统管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.system", "top.nextdoc4j.demo.controller.notification")
+                .packagesToScan(
+                        "top.nextdoc4j.demo.springboot.controller.system",
+                        "top.nextdoc4j.demo.springboot.controller.notification"
+                )
                 .addOpenApiCustomizer(getCustomizer("系统管理相关接口"))
                 .build();
     }
@@ -40,7 +46,7 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("file")
                 .displayName("文件管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.file")
+                .packagesToScan("top.nextdoc4j.demo.springboot.controller.file")
                 .addOpenApiCustomizer(getCustomizer("文件管理相关接口"))
                 .build();
     }
@@ -50,7 +56,7 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("auth")
                 .displayName(" 认证管理 API")
-                .packagesToScan("top.nextdoc4j.demo.controller.auth")
+                .packagesToScan("top.nextdoc4j.demo.springboot.controller.auth")
                 .addOpenApiCustomizer(getCustomizer("认证管理相关接口"))
                 .build();
     }
