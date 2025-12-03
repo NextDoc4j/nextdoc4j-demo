@@ -3,7 +3,7 @@ package top.nextdoc4j.demo.common.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import top.nextdoc4j.demo.common.enums.base.BaseEnum;
+import top.nextdoc4j.enums.core.BaseEnum;
 
 /**
  * 状态类型

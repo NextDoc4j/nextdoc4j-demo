@@ -2,7 +2,8 @@ package top.nextdoc4j.demo.common.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import top.nextdoc4j.demo.common.enums.base.BaseEnum;
+import top.nextdoc4j.enums.core.BaseEnum;
+
 
 /**
  * 角色状态类型

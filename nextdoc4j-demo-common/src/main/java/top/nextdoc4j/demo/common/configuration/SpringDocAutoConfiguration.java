@@ -108,16 +108,6 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
         return new GlobalAuthenticationCustomizer(properties, context);
     }
 
-    /**
-     * 自定义 BaseEnum 枚举参数配置（针对实现了 BaseEnum 的枚举，优化其枚举值和描述展示）
-     *
-     * @since 2.4.0
-     */
-    @Bean
-    public BaseEnumParameterHandler customParameterCustomizer(ObjectMapper mapper) {
-        return new BaseEnumParameterHandler(mapper);
-    }
-
     @Bean
     public GlobalExceptionHandler globalExceptionHandler() {
         return new GlobalExceptionHandler();
