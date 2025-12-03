@@ -16,15 +16,14 @@ public class SystemServiceApplication {
 
     private final ProjectProperties projectProperties;
 
+    public static void main(String[] args) {
+        SpringApplication.run(SystemServiceApplication.class, args);
+    }
 
     @Hidden
     @GetMapping("/")
     public R index() {
         return R.ok(projectProperties);
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(SystemServiceApplication.class, args);
     }
 
 }

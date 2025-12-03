@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.nextdoc4j.demo.common.model.base.R;
 import top.nextdoc4j.demo.common.model.req.auth.LoginReq;
 import top.nextdoc4j.demo.common.model.resp.LoginResp;
 
@@ -35,9 +36,9 @@ public class AuthController {
      */
     @Operation(summary = "登录", description = "用户登录")
     @PostMapping("/login")
-    public LoginResp login(@Validated @RequestBody LoginReq req, HttpServletRequest request) {   // 登录参数基类
+    public R<LoginResp> login(@Validated @RequestBody LoginReq req, HttpServletRequest request) {   // 登录参数基类
         // 模拟生成 token（你可以换成 Sa-Token / JWT）
         String token = UUID.randomUUID().toString().replace("-", "");
-        return LoginResp.builder().token(token).build();
+        return R.ok(LoginResp.builder().token(token).build());
     }
 }

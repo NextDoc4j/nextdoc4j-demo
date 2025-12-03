@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.common.configuration.properties.SpringDocExtensionProperties;
@@ -27,7 +26,6 @@ import java.util.stream.Collectors;
  * @date 2024/12/31 13:36
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class GlobalAuthenticationCustomizer implements GlobalOpenApiCustomizer {
 

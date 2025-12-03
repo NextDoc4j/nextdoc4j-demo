@@ -8,7 +8,7 @@ import top.nextdoc4j.demo.common.enums.base.BaseEnum;
  * 角色状态类型
  *
  * @author echo
- * @since  2025/11/05
+ * @since 2025/11/05
  */
 @Getter
 @RequiredArgsConstructor

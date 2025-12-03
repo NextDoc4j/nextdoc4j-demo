@@ -6,11 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.customizers.GlobalOperationCustomizer;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 全局描述定制器 - 处理 sa-token 的注解权限码
@@ -19,7 +20,6 @@ import java.util.List;
  * @date 2025/01/24 14:59
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class GlobalDescriptionCustomizer implements GlobalOperationCustomizer {
 
@@ -40,11 +40,19 @@ public class GlobalDescriptionCustomizer implements GlobalOperationCustomizer {
         String originalDescription = operation.getDescription();
         // 根据原描述是否为空，更新描述
         String newDescription = StringUtils.isNotEmpty(originalDescription)
-            ? originalDescription + "<br/>" + noteStr
-            : noteStr;
+                ? originalDescription + "<br/>" + noteStr
+                : noteStr;
 
         // 设置新描述
         operation.setDescription(newDescription);
+        Map<String, Object> noteMap = operation.getExtensions();
+        if (noteMap != null) {
+            noteMap.put("x-sa-token", noteList);
+        } else {
+            noteMap = new HashMap<>();
+            noteMap.put("x-sa-token", noteList);
+        }
+        operation.setExtensions(noteMap);
 
         return operation;
     }

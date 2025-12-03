@@ -50,6 +50,8 @@ spring:
 springdoc:
   # 设置对象型参数的展示形式
   default-flat-param-object: true
+  cache:
+    disabled: true
 
   # API 文档路径配置
   api-docs:

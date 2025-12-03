@@ -13,10 +13,14 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import top.nextdoc4j.demo.common.configuration.customizer.GlobalAuthenticationCustomizer;
+import top.nextdoc4j.demo.common.configuration.customizer.GlobalDescriptionCustomizer;
+import top.nextdoc4j.demo.common.configuration.exception.GlobalExceptionHandler;
 import top.nextdoc4j.demo.common.configuration.properties.ProjectProperties;
 import top.nextdoc4j.demo.common.configuration.properties.SpringDocExtensionProperties;
 
@@ -93,15 +97,30 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
         };
     }
 
+    @Bean
+    public GlobalDescriptionCustomizer globalDescriptionCustomizer() {
+        return new GlobalDescriptionCustomizer();
+    }
+
+    @Bean
+    public GlobalAuthenticationCustomizer globalAuthenticationCustomizer(SpringDocExtensionProperties properties,
+                                                                         ApplicationContext context) {
+        return new GlobalAuthenticationCustomizer(properties, context);
+    }
+
     /**
      * 自定义 BaseEnum 枚举参数配置（针对实现了 BaseEnum 的枚举，优化其枚举值和描述展示）
      *
-     * @return {@link BaseEnumParameterHandler }
      * @since 2.4.0
      */
     @Bean
     public BaseEnumParameterHandler customParameterCustomizer(ObjectMapper mapper) {
         return new BaseEnumParameterHandler(mapper);
+    }
+
+    @Bean
+    public GlobalExceptionHandler globalExceptionHandler() {
+        return new GlobalExceptionHandler();
     }
 
 

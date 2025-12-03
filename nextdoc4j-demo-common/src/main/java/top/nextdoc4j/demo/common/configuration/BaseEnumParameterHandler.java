@@ -75,7 +75,7 @@ public class BaseEnumParameterHandler extends ModelResolver implements Parameter
      * @param enumClass 枚举类型
      */
     private void configureSchema(Schema schema, Class<?> enumClass) {
-        BaseEnum[] enums = (BaseEnum[])enumClass.getEnumConstants();
+        BaseEnum[] enums = (BaseEnum[]) enumClass.getEnumConstants();
         List<String> valueList = Arrays.stream(enums).map(e -> e.getValue().toString()).toList();
         schema.setEnum(valueList);
         String enumValueType = ApiDocUtils.getEnumValueTypeAsString(enumClass);

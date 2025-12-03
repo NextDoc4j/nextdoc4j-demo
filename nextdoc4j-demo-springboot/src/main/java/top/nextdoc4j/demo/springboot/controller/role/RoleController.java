@@ -8,8 +8,6 @@ import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.common.enums.ResultCode;
 import top.nextdoc4j.demo.common.enums.RoleStatusType;
@@ -22,13 +20,12 @@ import top.nextdoc4j.demo.common.model.req.RoleUpdateReq;
 import top.nextdoc4j.demo.common.model.resp.PermissionResp;
 import top.nextdoc4j.demo.common.model.resp.RoleResp;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * 角色管理控制器
- * 
+ *
  * @author echo
  * @since 2025/09/15
  */
@@ -50,14 +47,13 @@ public class RoleController {
 
     @Operation(summary = "根据ID查询角色", description = "通过角色ID获取角色详细信息")
     @GetMapping("/{id}")
-    public ResponseEntity<R<RoleResp>> getRoleById(@PathVariable Long id) {
+    public R<RoleResp> getRoleById(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
-        
+
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         RoleResp role = new RoleResp();
@@ -69,8 +65,8 @@ public class RoleController {
         role.setSort(id.intValue());
         role.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
         role.setUpdateTime(LocalDateTime.now());
-        
-        return ResponseEntity.ok(R.ok(role));
+
+        return R.ok(role);
     }
 
     @Operation(summary = "分页查询角色", description = "根据条件分页查询角色列表")
@@ -107,7 +103,7 @@ public class RoleController {
         List<RoleResp> roles = CollUtil.newArrayList();
         String[] roleNames = {"管理员", "普通用户", "访客", "审计员", "运营"};
         String[] roleCodes = {"ADMIN", "USER", "GUEST", "AUDITOR", "OPERATOR"};
-        
+
         for (int i = 0; i < roleNames.length; i++) {
             RoleResp role = new RoleResp();
             role.setId((long) (i + 1));
@@ -120,20 +116,19 @@ public class RoleController {
             role.setUpdateTime(LocalDateTime.now());
             roles.add(role);
         }
-        
+
         return R.ok(roles);
     }
 
     @Operation(summary = "更新角色", description = "根据角色ID更新角色信息")
     @PutMapping("/{id}")
-    public ResponseEntity<R<RoleResp>> updateRole(@PathVariable Long id, @RequestBody RoleUpdateReq updateReq) {
+    public R<RoleResp> updateRole(@PathVariable Long id, @RequestBody RoleUpdateReq updateReq) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
-        
+
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         RoleResp role = new RoleResp();
@@ -146,28 +141,26 @@ public class RoleController {
         role.setCreateTime(LocalDateTime.now().minusDays(30));
         role.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(role));
+        return R.ok(role);
     }
 
     @Operation(summary = "删除角色", description = "根据角色ID删除角色")
     @DeleteMapping("/{id}")
-    public ResponseEntity<R<Void>> deleteRole(@PathVariable Long id) {
+    public R<Void> deleteRole(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
-        
+
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         // 检查是否有用户关联此角色
         if (id == 1L) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(R.fail("409", "该角色下存在用户，无法删除"));
+            return R.fail("409", "该角色下存在用户，无法删除");
         }
 
-        return ResponseEntity.ok(R.ok(null));
+        return R.ok(null);
     }
 
     @Operation(summary = "批量删除角色", description = "根据角色ID列表批量删除角色")
@@ -182,36 +175,34 @@ public class RoleController {
 
     @Operation(summary = "分配角色权限", description = "为指定角色分配权限")
     @PostMapping("/{id}/permissions")
-    public ResponseEntity<R<Void>> assignPermissions(@PathVariable Long id, 
-                                                    @RequestBody RolePermissionReq permissionReq) {
+    public R<Void> assignPermissions(@PathVariable Long id,
+                                     @RequestBody RolePermissionReq permissionReq) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
-        }
-        
-        if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok(R.ok(null));
+        if (id == 999L) {
+            return R.fail(ResultCode.NOT_FOUND);
+        }
+
+        return R.ok(null);
     }
 
     @Operation(summary = "获取角色权限", description = "获取指定角色的权限列表")
     @GetMapping("/{id}/permissions")
-    public ResponseEntity<R<List<PermissionResp>>> getRolePermissions(@PathVariable Long id) {
+    public R<List<PermissionResp>> getRolePermissions(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
-        
+
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         List<PermissionResp> permissions = CollUtil.newArrayList();
         String[] permissionNames = {"用户管理", "角色管理", "权限管理", "系统配置", "数据统计"};
         String[] permissionCodes = {"user:manage", "role:manage", "permission:manage", "system:config", "data:statistics"};
-        
+
         for (int i = 0; i < permissionNames.length; i++) {
             PermissionResp permission = new PermissionResp();
             permission.setId((long) (i + 1));
@@ -225,19 +216,18 @@ public class RoleController {
             permissions.add(permission);
         }
 
-        return ResponseEntity.ok(R.ok(permissions));
+        return R.ok(permissions);
     }
 
     @Operation(summary = "启用/禁用角色", description = "切换角色状态")
     @PatchMapping("/{id}/toggle-status")
-    public ResponseEntity<R<RoleResp>> toggleRoleStatus(@PathVariable Long id) {
+    public R<RoleResp> toggleRoleStatus(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
-        
+
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         RoleResp role = new RoleResp();
@@ -250,6 +240,6 @@ public class RoleController {
         role.setCreateTime(LocalDateTime.now().minusDays(30));
         role.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(role));
+        return R.ok(role);
     }
 }

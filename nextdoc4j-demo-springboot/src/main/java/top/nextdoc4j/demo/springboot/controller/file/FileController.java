@@ -52,16 +52,15 @@ import java.util.List;
 public class FileController {
 
 
-
     // ==================== 单文件上传 ====================
 
     /**
      * 【推荐】单文件上传 - 使用 @RequestPart
-     *
+     * <p>
      * 适用场景：标准的单文件上传，Swagger UI 友好
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
      */
     @Operation(
             summary = "单文件上传（推荐）",
@@ -81,7 +80,7 @@ public class FileController {
 
     /**
      * 单文件上传 - 使用 @RequestParam（兼容模式）
-     *
+     * <p>
      * 适用场景：某些旧版本客户端或特殊需求
      * 注意：需要额外配置才能在 Swagger UI 中正确显示
      */
@@ -107,12 +106,12 @@ public class FileController {
 
     /**
      * 【推荐】多文件上传 - 使用 @RequestPart
-     *
+     * <p>
      * 适用场景：批量文件上传
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   files.forEach(file => formData.append('files', file));
-     *
+     * const formData = new FormData();
+     * files.forEach(file => formData.append('files', file));
+     * <p>
      * 注意：总请求大小受 spring.servlet.multipart.max-request-size 限制
      */
     @Operation(
@@ -165,7 +164,7 @@ public class FileController {
 
     /**
      * 多文件上传 - 使用数组接收（另一种方式）
-     *
+     * <p>
      * 适用场景：某些框架或客户端使用数组形式
      */
     @Operation(
@@ -191,13 +190,13 @@ public class FileController {
 
     /**
      * 文件 + 表单参数混合上传
-     *
+     * <p>
      * 适用场景：上传文件的同时需要传递其他业务参数
      * 前端示例（FormData）：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
-     *   formData.append('category', 'avatar');
-     *   formData.append('description', '用户头像');
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
+     * formData.append('category', 'avatar');
+     * formData.append('description', '用户头像');
      */
     @Operation(
             summary = "文件 + 参数混合上传",
@@ -228,12 +227,12 @@ public class FileController {
 
     /**
      * 文件 + JSON 参数混合上传
-     *
+     * <p>
      * 适用场景：需要传递复杂对象参数
      * 前端示例：
-     *   const formData = new FormData();
-     *   formData.append('file', fileObject);
-     *   formData.append('metadata', JSON.stringify({category: 'avatar', tags: ['user', 'profile']}));
+     * const formData = new FormData();
+     * formData.append('file', fileObject);
+     * formData.append('metadata', JSON.stringify({category: 'avatar', tags: ['user', 'profile']}));
      */
     @Operation(
             summary = "文件 + JSON 参数混合上传",

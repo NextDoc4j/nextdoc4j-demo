@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 分组api
  *
  * @author echo
- * @since  2025/11/11
+ * @since 2025/11/11
  */
 @Component
 public class GroupedApi {

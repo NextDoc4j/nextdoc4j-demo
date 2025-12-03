@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.nextdoc4j.demo.common.enums.ResultCode;
@@ -95,10 +93,10 @@ public class NotificationController {
     @Operation(summary = "获取用户通知列表", description = "分页获取指定用户的通知列表")
     @GetMapping("/user/{userId}")
     @Parameter(name = "userId", description = "用户ID", example = "1")
-    public ResponseEntity<R<PageResult<NotificationResp>>> getUserNotifications(@PathVariable Long userId,
-                                                                                NotificationQuery query) {
+    public R<PageResult<NotificationResp>> getUserNotifications(@PathVariable Long userId,
+                                                                NotificationQuery query) {
         if (userId <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         List<NotificationResp> notifications = CollUtil.newArrayList();
@@ -130,20 +128,19 @@ public class NotificationController {
         pageResult.setSize(query.getPageSize());
         pageResult.setPages((long) Math.ceil(200.0 / query.getPageSize()));
 
-        return ResponseEntity.ok(R.ok(pageResult));
+        return R.ok(pageResult);
     }
 
     @Operation(summary = "获取通知详情", description = "根据通知ID获取通知详细信息")
     @GetMapping("/{id}")
     @Parameter(name = "id", description = "通知ID", example = "1")
-    public ResponseEntity<R<NotificationResp>> getNotificationById(@PathVariable Long id) {
+    public R<NotificationResp> getNotificationById(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         NotificationResp notification = new NotificationResp();
@@ -159,20 +156,19 @@ public class NotificationController {
         notification.setCreateTime(LocalDateTime.now().minusDays(1));
         notification.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(notification));
+        return R.ok(notification);
     }
 
     @Operation(summary = "标记通知为已读", description = "将指定的通知标记为已读状态")
     @PatchMapping("/{id}/read")
     @Parameter(name = "id", description = "通知ID", example = "1")
-    public ResponseEntity<R<NotificationResp>> markAsRead(@PathVariable Long id) {
+    public R<NotificationResp> markAsRead(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         NotificationResp notification = new NotificationResp();
@@ -188,7 +184,7 @@ public class NotificationController {
         notification.setCreateTime(LocalDateTime.now().minusDays(1));
         notification.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(notification));
+        return R.ok(notification);
     }
 
     @Operation(summary = "批量标记已读", description = "批量将多个通知标记为已读状态")
@@ -201,17 +197,16 @@ public class NotificationController {
     @Operation(summary = "删除通知", description = "根据通知ID删除通知")
     @Parameter(name = "id", description = "通知ID", example = "1")
     @DeleteMapping("/{id}")
-    public ResponseEntity<R<Void>> deleteNotification(@PathVariable Long id) {
+    public R<Void> deleteNotification(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(R.ok(null));
+        return R.ok(null);
     }
 
     @Operation(summary = "批量删除通知", description = "根据通知ID列表批量删除通知")
@@ -225,13 +220,13 @@ public class NotificationController {
     @Operation(summary = "获取未读通知数量", description = "获取指定用户的未读通知数量")
     @Parameter(name = "userId", description = "用户ID", example = "1")
     @GetMapping("/user/{userId}/unread-count")
-    public ResponseEntity<R<Long>> getUnreadCount(@PathVariable Long userId) {
+    public R<Long> getUnreadCount(@PathVariable Long userId) {
         if (userId <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         Long unreadCount = RandomUtil.randomLong(0, 50);
-        return ResponseEntity.ok(R.ok(unreadCount));
+        return R.ok(unreadCount);
     }
 
     @Operation(summary = "实时通知推送", description = "建立SSE连接，实时推送通知消息")
@@ -264,12 +259,12 @@ public class NotificationController {
     @Operation(summary = "清空用户通知", description = "清空指定用户的所有通知")
     @Parameter(name = "userId", description = "用户ID", example = "1")
     @DeleteMapping("/user/{userId}/clear")
-    public ResponseEntity<R<Void>> clearUserNotifications(@PathVariable Long userId) {
+    public R<Void> clearUserNotifications(@PathVariable Long userId) {
         if (userId <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok(R.ok(null));
+        return R.ok(null);
     }
 
     /**

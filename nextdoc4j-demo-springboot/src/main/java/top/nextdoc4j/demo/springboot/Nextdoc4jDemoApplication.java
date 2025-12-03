@@ -16,15 +16,14 @@ public class Nextdoc4jDemoApplication {
 
     private final ProjectProperties projectProperties;
 
+    public static void main(String[] args) {
+        SpringApplication.run(Nextdoc4jDemoApplication.class, args);
+    }
 
     @Hidden
     @GetMapping("/")
     public R index() {
         return R.ok(projectProperties);
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Nextdoc4jDemoApplication.class, args);
     }
 
 }

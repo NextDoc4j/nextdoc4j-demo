@@ -10,9 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.nextdoc4j.demo.common.enums.ResultCode;
@@ -142,14 +140,13 @@ public class UserController {
 
     @Operation(summary = "根据ID查询用户", description = "通过用户ID获取用户详细信息")
     @GetMapping("/{id}")
-    public ResponseEntity<R<UserResp>> getUserById(@PathVariable @Max(value = 999L,message = "id 不能大于 999") Long id) {
+    public R<UserResp> getUserById(@PathVariable @Max(value = 999L, message = "id 不能大于 999") Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         UserResp user = new UserResp();
@@ -162,7 +159,7 @@ public class UserController {
         user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
         user.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(user));
+        return R.ok(user);
     }
 
     @Operation(summary = "分页查询用户", description = "根据条件分页查询用户列表，支持用户名和邮箱模糊查询")
@@ -195,14 +192,13 @@ public class UserController {
 
     @Operation(summary = "更新用户", description = "根据用户ID更新用户信息")
     @PutMapping("/{id}")
-    public ResponseEntity<R<UserResp>> updateUser(@PathVariable Long id, @RequestBody UserUpdateReq updateReq) {
+    public R<UserResp> updateUser(@PathVariable Long id, @RequestBody UserUpdateReq updateReq) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         UserResp user = new UserResp();
@@ -215,22 +211,21 @@ public class UserController {
         user.setCreateTime(LocalDateTime.now().minusDays(30));
         user.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(user));
+        return R.ok(user);
     }
 
     @Operation(summary = "删除用户", description = "根据用户ID删除用户")
     @DeleteMapping("/{id}")
-    public ResponseEntity<R<Void>> deleteUser(@PathVariable Long id) {
+    public R<Void> deleteUser(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(R.ok(null));
+        return R.ok(null);
     }
 
     @Operation(summary = "批量删除用户", description = "根据用户ID列表批量删除用户")
@@ -275,28 +270,24 @@ public class UserController {
 
     @Operation(summary = "导出用户数据", description = "导出用户数据为 CSV 文件")
     @GetMapping("/export")
-    public ResponseEntity<byte[]> exportUsers(UserQuery query) {
+    public byte[] exportUsers(UserQuery query) {
         String csvContent = "ID,用户名,邮箱,年龄,手机号,状态,创建时间\n" +
                 "1,user_1,user1@nextdoc4j.top,25,13800000001,ACTIVE,2024-01-01 12:00:00\n" +
                 "2,user_2,user2@nextdoc4j.top,30,13800000002,ACTIVE,2024-01-02 12:00:00\n";
 
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=\"users.csv\"")
-                .header("Content-Type", "text/csv; charset=utf-8")
-                .body(csvContent.getBytes());
+        return csvContent.getBytes();
     }
 
     @Operation(summary = "启用/禁用用户", description = "切换用户状态")
     @PatchMapping("/{id}/toggle-status")
 
-    public ResponseEntity<R<UserResp>> toggleUserStatus(@PathVariable Long id) {
+    public R<UserResp> toggleUserStatus(@PathVariable Long id) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail(ResultCode.BAD_REQUEST));
+            return R.fail(ResultCode.BAD_REQUEST);
         }
 
         if (id == 999L) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(R.fail(ResultCode.NOT_FOUND));
+            return R.fail(ResultCode.NOT_FOUND);
         }
 
         UserResp user = new UserResp();
@@ -309,6 +300,6 @@ public class UserController {
         user.setCreateTime(LocalDateTime.now().minusDays(30));
         user.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(user));
+        return R.ok(user);
     }
 }

@@ -36,7 +36,7 @@ public class NotificationQuery {
     @Schema(description = "每页记录数，默认10", example = "10")
     private Integer pageSize = 10;
 
-    @Schema(description = "目标类型",example = "USER", allowableValues = {"USER", "ROLE", "ALL"})
+    @Schema(description = "目标类型", example = "USER", allowableValues = {"USER", "ROLE", "ALL"})
     private String targetType;
 
     @Schema(description = "目标ID", example = "1")

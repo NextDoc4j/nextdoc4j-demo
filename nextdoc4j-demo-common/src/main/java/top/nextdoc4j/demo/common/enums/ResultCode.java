@@ -78,14 +78,6 @@ public enum ResultCode {
         this.msg = msg;
     }
 
-    public String code() {
-        return code;
-    }
-
-    public String msg() {
-        return msg;
-    }
-
     /**
      * 根据状态码获取枚举
      */
@@ -96,6 +88,14 @@ public enum ResultCode {
             }
         }
         return null;
+    }
+
+    public String code() {
+        return code;
+    }
+
+    public String msg() {
+        return msg;
     }
 
     /**

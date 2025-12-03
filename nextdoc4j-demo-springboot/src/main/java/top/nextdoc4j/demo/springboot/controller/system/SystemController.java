@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.common.model.base.R;
 import top.nextdoc4j.demo.common.model.req.SystemConfigReq;
@@ -109,10 +108,10 @@ public class SystemController {
 
     @Operation(summary = "更新系统配置", description = "更新指定的系统配置项")
     @PutMapping("/config/{id}")
-    public ResponseEntity<R<SystemConfigResp>> updateSystemConfig(@PathVariable Long id,
-                                                                  @RequestBody SystemConfigReq configReq) {
+    public R<SystemConfigResp> updateSystemConfig(@PathVariable Long id,
+                                                  @RequestBody SystemConfigReq configReq) {
         if (id <= 0) {
-            return ResponseEntity.badRequest().body(R.fail("400", "配置ID无效"));
+            return R.fail("400", "配置ID无效");
         }
 
         SystemConfigResp config = new SystemConfigResp();
@@ -124,7 +123,7 @@ public class SystemController {
         config.setEditable(true);
         config.setUpdateTime(LocalDateTime.now());
 
-        return ResponseEntity.ok(R.ok(config));
+        return R.ok(config);
     }
 
     @Operation(summary = "重置系统配置", description = "重置系统配置为默认值")
@@ -171,7 +170,7 @@ public class SystemController {
     public R<Map<String, String>> clearCache(@RequestParam(required = false) String cacheType) {
         Map<String, String> result = new HashMap<>();
 
-        if (cacheType == null || "all" .equals(cacheType)) {
+        if (cacheType == null || "all".equals(cacheType)) {
             result.put("userCache", "cleared");
             result.put("roleCache", "cleared");
             result.put("configCache", "cleared");

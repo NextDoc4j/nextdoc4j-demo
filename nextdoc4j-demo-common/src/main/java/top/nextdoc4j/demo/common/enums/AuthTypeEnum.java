@@ -20,6 +20,6 @@ public enum AuthTypeEnum {
     /**
      * 第三方账号
      */
-    SOCIAL;
+    SOCIAL
 
 }
