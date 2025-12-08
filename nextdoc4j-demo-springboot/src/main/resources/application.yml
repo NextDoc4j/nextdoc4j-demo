@@ -108,16 +108,10 @@ nextdoc4j:
     markdown:
       - group: 更新日志
         location: classpath:/markdown/**
-
-
---- # 枚举配置
-nextdoc4j:
+  # 插件
   plugin:
     enum:
       enabled: false
-      description-color: blue
-      show-description: true
-      show-values: false
 
 
 --- # 日志配置
