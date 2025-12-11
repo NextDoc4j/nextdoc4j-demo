@@ -111,7 +111,7 @@ nextdoc4j:
   # 插件
   plugin:
     enum:
-      enabled: false
+      enabled: true
 
 
 --- # 日志配置
