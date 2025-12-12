@@ -2,7 +2,6 @@ package top.nextdoc4j.demo.common.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import top.nextdoc4j.enums.core.BaseEnum;
 
 
 /**
@@ -13,7 +12,7 @@ import top.nextdoc4j.enums.core.BaseEnum;
  */
 @Getter
 @RequiredArgsConstructor
-public enum RoleStatusType implements BaseEnum<Integer> {
+public enum RoleStatusType  {
 
 
     ACTIVE(1, "启用"),

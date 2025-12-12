@@ -3,7 +3,6 @@ package top.nextdoc4j.demo.common.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import top.nextdoc4j.enums.core.BaseEnum;
 
 /**
  * 状态类型
@@ -13,7 +12,7 @@ import top.nextdoc4j.enums.core.BaseEnum;
  */
 @Getter
 @RequiredArgsConstructor
-public enum StatusType implements BaseEnum<String> {
+public enum StatusType  {
 
     ACTIVE("ACTIVE", "启用"),
     INACTIVE("INACTIVE", "停用"),

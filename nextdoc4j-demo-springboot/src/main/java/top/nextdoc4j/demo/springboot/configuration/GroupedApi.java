@@ -62,6 +62,19 @@ public class GroupedApi {
     }
 
     /**
+     * 机器人 api
+     */
+    @Bean
+    public GroupedOpenApi robotApi() {
+        return GroupedOpenApi.builder()
+                .group("robot")
+                .displayName(" 机器人管理 API")
+                .packagesToScan("top.nextdoc4j.demo.springboot.controller.robot")
+                .addOpenApiCustomizer(getCustomizer("机器人管理相关接口"))
+                .build();
+    }
+
+    /**
      * 获取自定义配置器
      */
     private OpenApiCustomizer getCustomizer(String description) {

@@ -28,8 +28,12 @@
         <sa-token.version>1.44.0</sa-token.version>
         <spring-cloud-alibaba.version>2023.0.3.4</spring-cloud-alibaba.version>
         <nacos.client.version>2.5.1</nacos.client.version>
+        <lombok.version>1.18.42</lombok.version>
+        <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!-- 依赖版本统一管理 -->
@@ -114,6 +118,18 @@
                 <groupId>top.nextdoc4j</groupId>
                 <artifactId>nextdoc4j-demo-common</artifactId>
                 <version>1.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.therapi</groupId>
+                <artifactId>therapi-runtime-javadoc</artifactId>
+                <version>${therapi-javadoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
         </dependencies>

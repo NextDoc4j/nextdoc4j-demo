@@ -74,7 +74,6 @@ public class FileController {
             MultipartFile file) {
 
         validateFile(file);
-        log.info("单文件上传：{}, 大小：{} bytes", file.getOriginalFilename(), file.getSize());
         return R.ok(buildFileUploadResp(file));
     }
 
