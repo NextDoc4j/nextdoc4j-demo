@@ -2,6 +2,7 @@ package top.nextdoc4j.demo.common.model.resp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import top.nextdoc4j.demo.common.enums.Priority;
 import top.nextdoc4j.demo.common.enums.StatusType;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,9 @@ public class UserResp {
 
     @Schema(description = "用户状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE", "PENDING"})
     private StatusType status;
+
+    @Schema(description = "优先级")
+    private Priority priority;
 
     @Schema(description = "创建时间", example = "2024-01-01T12:00:00")
     private LocalDateTime createTime;

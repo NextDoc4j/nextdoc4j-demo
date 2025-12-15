@@ -4,22 +4,21 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import top.nextdoc4j.enums.core.EnumValue;
 
-
 /**
- * 角色状态类型
+ * 优先级
  *
  * @author echo
- * @since 2025/11/05
+ * @since  2025/12/15
  */
 @Getter
 @RequiredArgsConstructor
-public enum RoleStatusType implements EnumValue<Integer> {
-
-
-    ACTIVE(1, "启用"),
-
-    INACTIVE(2, "禁用");
-
+public enum Priority implements EnumValue<Integer> {
+    
+    LOW(1),
+    MEDIUM(2),
+    HIGH(3),
+    URGENT(4);
+    
     private final Integer value;
-    private final String description;
+
 }

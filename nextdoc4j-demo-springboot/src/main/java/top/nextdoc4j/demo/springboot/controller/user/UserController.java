@@ -138,7 +138,7 @@ public class UserController {
     }
 
 
-    @Operation(summary = "根据ID查询用户", description = "通过用户ID获取用户详细信息")
+    @Operation(summary = "根据 ID 查询用户", description = "通过用户 ID 获取用户详细信息")
     @GetMapping("/{id}")
     public R<UserResp> getUserById(@PathVariable @Max(value = 999L, message = "id 不能大于 999") Long id) {
         if (id <= 0) {
@@ -156,6 +156,60 @@ public class UserController {
         user.setAge(25);
         user.setPhone("138" + String.format("%08d", id));
         user.setStatus(StatusType.ACTIVE);
+        user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
+        user.setUpdateTime(LocalDateTime.now());
+
+        return R.ok(user);
+    }
+
+    @Operation(
+            summary = "根据用户状态查询用户信息",
+            description = "通过用户状态查询用户信息示例（仅返回一条模拟数据）"
+    )
+    @GetMapping("/status/{status}")
+    public R<UserResp> getUserByStatusPath(@PathVariable StatusType status) {
+
+        if (status == null) {
+            return R.fail(ResultCode.BAD_REQUEST);
+        }
+
+        if (StatusType.INACTIVE.equals(status)) {
+            return R.fail(ResultCode.NOT_FOUND);
+        }
+
+        UserResp user = new UserResp();
+        user.setId(1001L);
+        user.setUsername("user_" + status.name().toLowerCase());
+        user.setEmail("user_" + status.name().toLowerCase() + "@nextdoc4j.top");
+        user.setAge(25);
+        user.setPhone("13800001234");
+        user.setStatus(status);
+        user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
+        user.setUpdateTime(LocalDateTime.now());
+
+        return R.ok(user);
+    }
+
+    @Operation(
+            summary = "根据用户状态查询用户信息",
+            description = "通过用户状态（query 参数）查询用户信息"
+    )
+    @GetMapping("/status")
+    public R<UserResp> getUserByStatusQuery(
+            @RequestParam StatusType status
+    ) {
+
+        if (StatusType.INACTIVE.equals(status)) {
+            return R.fail(ResultCode.NOT_FOUND);
+        }
+
+        UserResp user = new UserResp();
+        user.setId(1002L);
+        user.setUsername("user_" + status.name().toLowerCase());
+        user.setEmail("user_" + status.name().toLowerCase() + "@nextdoc4j.top");
+        user.setAge(26);
+        user.setPhone("13800005678");
+        user.setStatus(status);
         user.setCreateTime(LocalDateTime.now().minusDays(RandomUtil.randomInt(1, 100)));
         user.setUpdateTime(LocalDateTime.now());
 

@@ -8,6 +8,7 @@ package top.nextdoc4j.demo.common.model.req;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import top.nextdoc4j.demo.common.enums.Priority;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +38,9 @@ public class UserReq {
     @DecimalMax(value = "100", inclusive = false)
     @Schema(description = "分数", example = "75")
     private Double score;
+
+    @Schema(description = "优先级")
+    private Priority priority;
 
     @Pattern(regexp = "^[0-9]{11}$")
     @Schema(description = "手机号", example = "13800001111")
