@@ -1,11 +1,8 @@
 package top.nextdoc4j.demo.common.configuration.customizer;
 
 import cn.dev33.satoken.annotation.SaIgnore;
-import cn.hutool.core.map.MapUtil;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
@@ -13,7 +10,6 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.*;
-import top.nextdoc4j.demo.common.configuration.properties.SpringDocExtensionProperties;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -29,10 +25,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GlobalAuthenticationCustomizer implements GlobalOpenApiCustomizer {
 
-    /**
-     * SpringDoc 扩展配置属性
-     */
-    private final SpringDocExtensionProperties properties;
 
     /**
      * Spring 应用上下文
@@ -86,16 +78,7 @@ public class GlobalAuthenticationCustomizer implements GlobalOpenApiCustomizer {
      * @param pathItem 当前路径项
      */
     private void addAuthenticationParameters(PathItem pathItem) {
-        Components components = properties.getComponents();
-        if (components == null || MapUtil.isEmpty(components.getSecuritySchemes())) {
-            return;
-        }
-        Set<String> schemeKeys = components.getSecuritySchemes().keySet();
-        pathItem.readOperations().forEach(operation -> {
-            SecurityRequirement req = new SecurityRequirement();
-            schemeKeys.forEach(req::addList);
-            operation.addSecurityItem(req);
-        });
+
     }
 
     /**

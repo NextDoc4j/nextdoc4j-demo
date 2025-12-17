@@ -50,7 +50,6 @@ public class OperationDescriptionCustomizer {
      * @param <A>             注解类型
      * @return 拼接好的注解信息字符串
      */
-    @SuppressWarnings("unchecked")
     private <A extends Annotation> String getAnnotationInfo(HandlerMethod handlerMethod,
                                                             Class<A> annotationClass,
                                                             String title) {

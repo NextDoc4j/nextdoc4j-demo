@@ -24,10 +24,18 @@
             <groupId>top.nextdoc4j</groupId>
             <artifactId>nextdoc4j-springboot3-starter</artifactId>
         </dependency>
+
+        <!--枚举插件-->
         <dependency>
             <groupId>top.nextdoc4j</groupId>
             <artifactId>nextdoc4j-plugin-enums</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>top.nextdoc4j</groupId>
+            <artifactId>nextdoc4j-plugin-security-satoken</artifactId>
+        </dependency>
+
 
         <!-- 校验 -->
         <dependency>

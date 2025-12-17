@@ -27,7 +27,7 @@ public class UserResp {
     @Schema(description = "手机号", example = "13800001111")
     private String phone;
 
-    @Schema(description = "用户状态", example = "ACTIVE", allowableValues = {"ACTIVE", "INACTIVE", "PENDING"})
+    @Schema(description = "用户状态")
     private StatusType status;
 
     @Schema(description = "优先级")

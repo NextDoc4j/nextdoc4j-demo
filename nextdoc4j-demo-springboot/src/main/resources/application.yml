@@ -111,6 +111,8 @@ nextdoc4j:
   plugin:
     enum:
       enabled: true
+    security:
+      enabled: true
 
 
 --- # 日志配置

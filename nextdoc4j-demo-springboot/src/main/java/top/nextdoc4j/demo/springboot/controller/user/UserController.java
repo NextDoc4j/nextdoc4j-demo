@@ -1,6 +1,7 @@
 package top.nextdoc4j.demo.springboot.controller.user;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaMode;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
@@ -46,7 +47,7 @@ public class UserController {
 
     private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
 
-    @SaCheckPermission(value = {"user-add", "user-all", "user-delete"}, mode = SaMode.OR)
+    @SaCheckPermission(value = {"user-add", "user-all", "user-delete"}, mode = SaMode.OR, orRole = "admin")
     @Operation(summary = "新增用户", description = "创建一个新的用户账户")
     @PostMapping
     public R<UserResp> createUser(@RequestBody UserReq userReq) {
@@ -59,7 +60,7 @@ public class UserController {
     }
 
 
-    @SaCheckPermission(value = "user.add", orRole = "admin")
+    @SaCheckRole(value = {"admin", "manager"}, mode = SaMode.AND)
     @Operation(summary = "新增用户和角色", description = "")
     @PostMapping("/userAndRole")
     public R<UserResp> createUserAndRole(@RequestBody UserReq userReq, @RequestBody RoleReq roleReq) {

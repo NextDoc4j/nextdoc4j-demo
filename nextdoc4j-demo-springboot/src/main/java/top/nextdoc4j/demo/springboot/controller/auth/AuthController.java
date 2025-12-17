@@ -1,5 +1,6 @@
 package top.nextdoc4j.demo.springboot.controller.auth;
 
+import cn.dev33.satoken.annotation.SaIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +35,7 @@ public class AuthController {
      * @param request
      * @return 登录响应参数
      */
+    @SaIgnore
     @Operation(summary = "登录", description = "用户登录")
     @PostMapping("/login")
     public R<LoginResp> login(@Validated @RequestBody LoginReq req, HttpServletRequest request) {   // 登录参数基类
