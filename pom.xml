@@ -23,7 +23,7 @@
         <java.version>17</java.version>
         <spring-boot.version>3.5.7</spring-boot.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
-        <nextdoc4j.version>1.1.5-SNAPSHOT</nextdoc4j.version>
+        <nextdoc4j.version>1.1.6-SNAPSHOT</nextdoc4j.version>
         <hutool.version>5.8.41</hutool.version>
         <sa-token.version>1.44.0</sa-token.version>
         <spring-cloud-alibaba.version>2023.0.3.4</spring-cloud-alibaba.version>
