@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import top.nextdoc4j.demo.common.enums.ResultCode;
-import top.nextdoc4j.demo.common.model.base.PageResult;
-import top.nextdoc4j.demo.common.model.base.R;
-import top.nextdoc4j.demo.common.model.query.NotificationQuery;
-import top.nextdoc4j.demo.common.model.req.NotificationReq;
-import top.nextdoc4j.demo.common.model.resp.NotificationResp;
+import top.nextdoc4j.demo.core.enums.ResultCode;
+import top.nextdoc4j.demo.core.model.base.PageResult;
+import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.query.NotificationQuery;
+import top.nextdoc4j.demo.core.model.req.NotificationReq;
+import top.nextdoc4j.demo.core.model.resp.NotificationResp;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

@@ -9,11 +9,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import top.nextdoc4j.demo.common.model.base.R;
-import top.nextdoc4j.demo.common.model.req.SystemConfigReq;
-import top.nextdoc4j.demo.common.model.resp.SystemConfigResp;
-import top.nextdoc4j.demo.common.model.resp.SystemInfoResp;
-import top.nextdoc4j.demo.common.model.resp.SystemStatisticsResp;
+import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.req.SystemConfigReq;
+import top.nextdoc4j.demo.core.model.resp.SystemConfigResp;
+import top.nextdoc4j.demo.core.model.resp.SystemInfoResp;
+import top.nextdoc4j.demo.core.model.resp.SystemStatisticsResp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

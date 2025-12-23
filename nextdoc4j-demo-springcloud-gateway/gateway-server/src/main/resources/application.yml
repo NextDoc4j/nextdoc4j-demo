@@ -11,14 +11,11 @@ spring:
       server-addr: 192.168.10.70:60008
       username: nacos
       password: nacos
-
-
       # 配置中心暂时禁用
       config:
         enabled: false
         import-check:
           enabled: false
-
       # 服务发现
       discovery:
         namespace: public
@@ -36,26 +33,37 @@ spring:
               lowerCaseServiceId: true
               enabled: true
           routes:
-          - id: user-service
-            uri: lb://user-service
-            predicates:
-              - Path=/user/**
-            filters:
-              - StripPrefix=1
+            # 用户服务
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/user/**
+              filters:
+                - StripPrefix=1
+              metadata:
+                nextdoc4j:
+                  name: 用户管理
 
-          - id: system-service
-            uri: lb://system-service
-            predicates:
-              - Path=/system/**
-            filters:
-              - StripPrefix=1
+            # 系统服务
+            - id: system-service
+              uri: lb://system-service
+              predicates:
+                - Path=/system/**
+              filters:
+                - StripPrefix=1
+              metadata:
+                nextdoc4j.name: 系统服务
 
-          - id: file-service
-            uri: lb://file-service
-            predicates:
-              - Path=/file/**
-            filters:
-              - StripPrefix=1
+            # 文件服务 - 自定义显示名称
+            - id: file-service
+              uri: lb://file-service
+              predicates:
+                - Path=/file/**
+              filters:
+                - StripPrefix=1
+              metadata:
+                nextdoc4j:
+                  name: 文件服务
 
 
 # 日志配置
@@ -69,3 +77,14 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
   file:
     name: logs/nextdoc4j-demo.log
+
+
+nextdoc4j:
+  plugin.gateway:
+    enabled: true
+    # 是否自动发现
+    auto-discovery: true
+    # 服务名解析策略
+    name-resolve-strategy: auto  # ROUTE_ID, METADATA, URI, AUTO
+    # 文档路径解析策略
+    doc-path-strategy: AUTO      # METADATA, ROUTE_PREDICATE, MANUAL_ONLY

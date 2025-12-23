@@ -1,9 +1,9 @@
 package top.nextdoc4j.demo.springboot.controller.robot;
 
 import org.springframework.web.bind.annotation.*;
-import top.nextdoc4j.demo.common.model.base.PageResult;
-import top.nextdoc4j.demo.common.model.base.R;
-import top.nextdoc4j.demo.common.model.req.Robot;
+import top.nextdoc4j.demo.core.model.base.PageResult;
+import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.req.Robot;
 
 /**
  * 机器人管理接口

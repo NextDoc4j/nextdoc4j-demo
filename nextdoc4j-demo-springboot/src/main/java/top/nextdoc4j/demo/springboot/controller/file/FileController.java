@@ -16,8 +16,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import top.nextdoc4j.demo.common.model.base.R;
-import top.nextdoc4j.demo.common.model.resp.FileUploadResp;
+import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.resp.FileUploadResp;
 
 import java.io.IOException;
 import java.io.InputStream;

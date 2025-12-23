@@ -43,7 +43,12 @@
 
         <dependency>
             <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-demo-common</artifactId>
+            <artifactId>nextdoc4j-demo-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.nextdoc4j</groupId>
+            <artifactId>nextdoc4j-demo-web</artifactId>
         </dependency>
 
         <dependency>

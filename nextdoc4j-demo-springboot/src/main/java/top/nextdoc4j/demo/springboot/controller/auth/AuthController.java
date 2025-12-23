@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.nextdoc4j.demo.common.model.base.R;
-import top.nextdoc4j.demo.common.model.req.auth.LoginReq;
-import top.nextdoc4j.demo.common.model.resp.LoginResp;
+import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.req.auth.LoginReq;
+import top.nextdoc4j.demo.core.model.resp.LoginResp;
 
 import java.util.UUID;
 

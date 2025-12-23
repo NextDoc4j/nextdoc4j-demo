@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(mvn clean compile:*)",
+      "Bash(find:*)",
+      "Bash(git restore:*)"
+    ]
+  }
+}
