@@ -35,10 +35,10 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-plugin-gateway</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>top.nextdoc4j</groupId>-->
+<!--            <artifactId>nextdoc4j-plugin-gateway</artifactId>-->
+<!--        </dependency>-->
 
         <!-- nextdoc4j demo core (无 web 依赖) -->
         <dependency>
