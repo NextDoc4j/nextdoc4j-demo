@@ -77,14 +77,3 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
   file:
     name: logs/nextdoc4j-demo.log
-
-
-nextdoc4j:
-  plugin.gateway:
-    enabled: true
-    # 是否自动发现
-    auto-discovery: true
-    # 服务名解析策略
-    name-resolve-strategy: auto  # ROUTE_ID, METADATA, URI, AUTO
-    # 文档路径解析策略
-    doc-path-strategy: AUTO      # METADATA, ROUTE_PREDICATE, MANUAL_ONLY
