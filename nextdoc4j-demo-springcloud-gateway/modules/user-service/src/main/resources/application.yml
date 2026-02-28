@@ -29,6 +29,25 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
+  group-configs:
+    - group: user
+      display-name: 用户管理
+      packages-to-scan: top.nextdoc4j.demo.user.controller.user
+    - group: role
+      display-name: 角色管理
+      packages-to-scan: top.nextdoc4j.demo.user.controller.role
+
+  ## 组件配置
+  components:
+    # 鉴权配置
+    security-schemes:
+      Authorization:
+        type: HTTP
+        in: HEADER
+        name: Authorization
+        scheme: Bearer
+        description: "请输入 Bearer Token，格式：Bearer {token}"
+
 
 # nextdoc4j 配置
 nextdoc4j:
@@ -45,7 +64,16 @@ nextdoc4j:
       title: NextDoc4j Demo
       logo: classpath:/favicon.ico
       footer-text: "Copyright © 2025 - [NextDoc4j](https://nextdoc4j.top) All Rights Reserved."
+    # markdown 配置 - 用于展示更新日志等文档
+    markdown:
+      - group: 更新日志
+        location: classpath:/markdown/changelog/**
+      - group: 项目简介
+        location: classpath:/markdown/otherdoc/**
 
+  plugin:
+    security:
+      enabled: true
 
 
 

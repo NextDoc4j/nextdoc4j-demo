@@ -1,4 +1,4 @@
-package top.nextdoc4j.demo.user.controller;
+package top.nextdoc4j.demo.user.controller.user;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaMode;

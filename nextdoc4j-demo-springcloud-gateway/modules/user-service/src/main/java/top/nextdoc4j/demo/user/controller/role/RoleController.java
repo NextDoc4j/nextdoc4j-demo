@@ -1,4 +1,4 @@
-package top.nextdoc4j.demo.user.controller;
+package top.nextdoc4j.demo.user.controller.role;
 
 
 import cn.hutool.core.bean.BeanUtil;

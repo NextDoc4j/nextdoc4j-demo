@@ -88,3 +88,11 @@ nextdoc4j:
     name-resolve-strategy: auto  # ROUTE_ID, METADATA, URI, AUTO
     # 文档路径解析策略
     doc-path-strategy: AUTO      # METADATA, ROUTE_PREDICATE, MANUAL_ONLY
+    security:
+      globalSchemes:
+        Authorization:
+          type: HTTP
+          in: HEADER
+          name: Authorization
+          scheme: Bearer
+          description: "请输入 Bearer Token，格式：Bearer {token}"

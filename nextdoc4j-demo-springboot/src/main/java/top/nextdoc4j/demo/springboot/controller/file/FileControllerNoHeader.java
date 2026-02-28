@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.nextdoc4j.demo.core.model.base.R;
+import top.nextdoc4j.demo.core.model.req.Robot;
 import top.nextdoc4j.demo.core.model.resp.FileUploadResp;
 
 import java.io.IOException;
@@ -267,7 +268,7 @@ public class FileControllerNoHeader {
     )
     @GetMapping("/download/changelog")
     public void downloadChangelog(HttpServletResponse response) throws IOException {
-        String filepath = "markdown/CHANGELOG.md";
+        String filepath = "markdown/changelog/CHANGELOG.md";
         String filename = "CHANGELOG.md";
         downloadFile(filepath, filename, true, response);
     }

@@ -106,7 +106,9 @@ nextdoc4j:
     # markdown 配置 - 用于展示更新日志等文档
     markdown:
       - group: 更新日志
-        location: classpath:/markdown/**
+        location: classpath:/markdown/changelog/**
+      - group: 项目简介
+        location: classpath:/markdown/otherdoc/**
   # 插件
   plugin:
     enum:

@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.core.model.base.R;
 import top.nextdoc4j.demo.core.model.req.SystemConfigReq;
@@ -217,5 +219,22 @@ public class SystemController {
         }
 
         return R.ok(logs);
+    }
+    @Operation(summary = "获取系统配置 - xml", description = "以 XML 格式返回系统配置信息")
+    @GetMapping(value = "/config/xml", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<String> getSystemConfigXml() {
+        String xml = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <SystemConfig>
+                <AppName>NextDoc4j</AppName>
+                <Version>1.0.0</Version>
+                <Environment>production</Environment>
+                <MaxConnections>100</MaxConnections>
+                <DebugMode>false</DebugMode>
+            </SystemConfig>
+            """;
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_XML)
+                .body(xml);
     }
 }
