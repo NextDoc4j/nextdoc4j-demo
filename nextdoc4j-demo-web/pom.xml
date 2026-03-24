@@ -10,14 +10,14 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>nextdoc4j-demo-springboot</artifactId>
+    <artifactId>nextdoc4j-demo-web</artifactId>
     <packaging>pom</packaging>
-    <name>nextdoc4j-demo-springboot</name>
-    <description>单体演示应用聚合模块（SB3/SB4 双轨）</description>
+    <name>nextdoc4j-demo-web</name>
+    <description>Web 公共能力聚合模块（按 SB3/SB4 分离）</description>
 
     <modules>
-        <module>nextdoc4j-demo-springboot3</module>
-        <module>nextdoc4j-demo-springboot4</module>
+        <module>nextdoc4j-demo-web-sb3</module>
+        <module>nextdoc4j-demo-web-sb4</module>
     </modules>
 
 </project>
