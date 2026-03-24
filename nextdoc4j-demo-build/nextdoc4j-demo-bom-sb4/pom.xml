@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>top.nextdoc4j</groupId>
+        <artifactId>nextdoc4j-demo-build</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>nextdoc4j-demo-bom-sb4</artifactId>
+    <packaging>pom</packaging>
+    <name>nextdoc4j-demo-bom-sb4</name>
+    <description>Spring Boot 4 技术栈依赖对齐 BOM（Spring Boot 4 / Spring Cloud / nextdoc4j-sb4）</description>
+
+    <properties>
+        <spring-cloud-alibaba.version>2025.1.0.0</spring-cloud-alibaba.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-bom-springboot4</artifactId>
+                <version>${nextdoc4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-web-sb4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-springboot4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-gateway-springboot4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-modules-user-sb4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-modules-file-sb4</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.therapi</groupId>
+                <artifactId>therapi-runtime-javadoc</artifactId>
+                <version>${therapi-javadoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

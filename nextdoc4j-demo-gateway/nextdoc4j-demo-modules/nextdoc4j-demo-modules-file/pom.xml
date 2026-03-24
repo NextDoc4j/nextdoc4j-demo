@@ -6,18 +6,18 @@
 
     <parent>
         <groupId>top.nextdoc4j</groupId>
-        <artifactId>nextdoc4j-demo</artifactId>
+        <artifactId>nextdoc4j-demo-modules</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>nextdoc4j-demo-springboot</artifactId>
+    <artifactId>nextdoc4j-demo-modules-file</artifactId>
     <packaging>pom</packaging>
-    <name>nextdoc4j-demo-springboot</name>
-    <description>单体演示应用聚合模块（SB3/SB4 双轨）</description>
+    <name>nextdoc4j-demo-modules-file</name>
+    <description>文件域微服务聚合模块（SB3/SB4）</description>
 
     <modules>
-        <module>nextdoc4j-demo-springboot3</module>
-        <module>nextdoc4j-demo-springboot4</module>
+        <module>nextdoc4j-demo-modules-file-sb3</module>
+        <module>nextdoc4j-demo-modules-file-sb4</module>
     </modules>
 
 </project>

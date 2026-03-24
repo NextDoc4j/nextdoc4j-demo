@@ -10,149 +10,50 @@
     <packaging>pom</packaging>
 
     <name>nextdoc4j-demo</name>
-    <description>nextdoc4j 集成示例</description>
+    <description>nextdoc4j demo 根父工程（统一聚合与插件管理）</description>
 
     <modules>
-        <module>nextdoc4j-demo-common</module>
+        <module>nextdoc4j-demo-build</module>
+        <module>nextdoc4j-demo-core</module>
+        <module>nextdoc4j-demo-web</module>
         <module>nextdoc4j-demo-springboot</module>
-        <module>nextdoc4j-demo-springcloud-gateway</module>
+        <module>nextdoc4j-demo-gateway</module>
     </modules>
 
     <properties>
-        <revision>1.0.0</revision>
+        <revision>1.2.0-SNAPSHOT</revision>
+        <nextdoc4j.version>1.2.0-SNAPSHOT</nextdoc4j.version>
         <java.version>17</java.version>
-        <spring-boot.version>3.5.7</spring-boot.version>
-        <spring-cloud.version>2025.0.0</spring-cloud.version>
-        <nextdoc4j.version>1.1.8-SNAPSHOT</nextdoc4j.version>
-        <hutool.version>5.8.41</hutool.version>
-        <sa-token.version>1.44.0</sa-token.version>
-        <spring-cloud-alibaba.version>2023.0.3.4</spring-cloud-alibaba.version>
-        <nacos.client.version>2.5.1</nacos.client.version>
-        <lombok.version>1.18.42</lombok.version>
-        <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <lombok.version>1.18.42</lombok.version>
+        <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
+        <swagger.version>2.2.45</swagger.version>
+
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     </properties>
 
-    <!-- 依赖版本统一管理 -->
-    <dependencyManagement>
-        <dependencies>
-
-            <!-- Spring Boot BOM -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Spring Cloud BOM -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- nextdoc4j BOM -->
-            <dependency>
-                <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-dependencies</artifactId>
-                <version>${nextdoc4j.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.nacos</groupId>
-                <artifactId>nacos-client</artifactId>
-                <version>${nacos.client.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.alibaba.nacos</groupId>
-                        <artifactId>nacos-log4j2-adapter</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.alibaba.nacos</groupId>
-                        <artifactId>nacos-logback-adapter-12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.alibaba.nacos</groupId>
-                        <artifactId>logback-adapter</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-
-            <!-- Hutool -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-bom</artifactId>
-                <version>${hutool.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Sa-Token -->
-            <dependency>
-                <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-bom</artifactId>
-                <version>${sa-token.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-common</artifactId>
-                <version>1.0.0</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-core</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-web</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.therapi</groupId>
-                <artifactId>therapi-runtime-javadoc</artifactId>
-                <version>${therapi-javadoc.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>2.2.39</version>
-                <scope>provided</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <release>${java.version}</release>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
