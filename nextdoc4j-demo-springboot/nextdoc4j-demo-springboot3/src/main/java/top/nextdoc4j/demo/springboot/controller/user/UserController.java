@@ -232,6 +232,7 @@ public class UserController {
         return R.ok(pageResult);
     }
 
+    @SaCheckRole(value = {"admin", "test"})
     @Operation(summary = "更新用户", description = "根据用户ID更新用户信息")
     @PutMapping("/{id}")
     public R<UserResp> updateUser(@PathVariable Long id, @RequestBody UserUpdateReq updateReq) {
