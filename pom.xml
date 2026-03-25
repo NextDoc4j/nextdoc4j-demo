@@ -22,7 +22,7 @@
 
     <properties>
         <revision>1.2.0-SNAPSHOT</revision>
-        <nextdoc4j.version>1.2.0-SNAPSHOT</nextdoc4j.version>
+        <nextdoc4j.version>1.2.1-SNAPSHOT</nextdoc4j.version>
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.source>${java.version}</maven.compiler.source>
