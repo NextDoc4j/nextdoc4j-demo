@@ -6,11 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.nextdoc4j.demo.web.configuration.properties.ProjectProperties;
+import top.nextdoc4j.demo.springboot.configuration.properties.ProjectProperties;
 import top.nextdoc4j.demo.core.model.base.R;
 
 @RequiredArgsConstructor
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "top.nextdoc4j.demo")
 @RestController
 public class Nextdoc4jDemoSb3Application {
 

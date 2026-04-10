@@ -21,8 +21,8 @@ public class GroupedApi {
                 .group("account")
                 .displayName("用户与角色管理 API")
                 .packagesToScan(
-                        "top.nextdoc4j.demo.springboot.controller.user",
-                        "top.nextdoc4j.demo.springboot.controller.role"
+                        "top.nextdoc4j.demo.controller.user.user",
+                        "top.nextdoc4j.demo.controller.user.role"
                 )
                 .addOpenApiCustomizer(getCustomizer("用户与角色管理相关接口"))
                 .build();
@@ -34,8 +34,8 @@ public class GroupedApi {
                 .group("system")
                 .displayName("系统管理 API")
                 .packagesToScan(
-                        "top.nextdoc4j.demo.springboot.controller.system",
-                        "top.nextdoc4j.demo.springboot.controller.notification"
+                        "top.nextdoc4j.demo.controller.system.system",
+                        "top.nextdoc4j.demo.controller.system.notification"
                 )
                 .addOpenApiCustomizer(getCustomizer("系统管理相关接口"))
                 .build();
@@ -46,7 +46,7 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("file")
                 .displayName("文件管理 API")
-                .packagesToScan("top.nextdoc4j.demo.springboot.controller.file")
+                .packagesToScan("top.nextdoc4j.demo.controller.file")
                 .addOpenApiCustomizer(getCustomizer("文件管理相关接口"))
                 .build();
     }
@@ -56,21 +56,8 @@ public class GroupedApi {
         return GroupedOpenApi.builder()
                 .group("auth")
                 .displayName(" 认证管理 API")
-                .packagesToScan("top.nextdoc4j.demo.springboot.controller.auth")
+                .packagesToScan("top.nextdoc4j.demo.controller.user.auth")
                 .addOpenApiCustomizer(getCustomizer("认证管理相关接口"))
-                .build();
-    }
-
-    /**
-     * 机器人 api
-     */
-    @Bean
-    public GroupedOpenApi robotApi() {
-        return GroupedOpenApi.builder()
-                .group("robot")
-                .displayName(" 机器人管理 API")
-                .packagesToScan("top.nextdoc4j.demo.springboot.controller.robot")
-                .addOpenApiCustomizer(getCustomizer("机器人管理相关接口"))
                 .build();
     }
 

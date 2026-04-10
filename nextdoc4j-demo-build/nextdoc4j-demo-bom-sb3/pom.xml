@@ -43,7 +43,17 @@
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-web-sb3</artifactId>
+                <artifactId>nextdoc4j-demo-controller-user</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-controller-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-controller-file</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -53,7 +63,12 @@
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-gateway-springboot3</artifactId>
+                <artifactId>nextdoc4j-demo-gateway-webflux-springboot3</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-gateway-webmvc-springboot3</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -64,6 +79,11 @@
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
                 <artifactId>nextdoc4j-demo-modules-file-sb3</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-modules-system-sb3</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

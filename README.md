@@ -23,7 +23,7 @@
 - Spring Boot 3 与 Spring Boot 4 双版本隔离
 - 单体服务模式
 - 网关 + 微服务模式
-- 统一的模型层复用与分版本 Web 公共配置
+- 统一的模型层、controller 层复用与分版本 Web 公共配置
 
 > 本项目以演示和参考为主，不建议直接用于生产环境。
 
@@ -35,22 +35,33 @@ nextdoc4j-demo
 │   ├── nextdoc4j-demo-bom-sb3
 │   └── nextdoc4j-demo-bom-sb4
 ├── nextdoc4j-demo-core
+├── nextdoc4j-demo-controller
+│   ├── nextdoc4j-demo-controller-user
+│   ├── nextdoc4j-demo-controller-system
+│   └── nextdoc4j-demo-controller-file
 ├── nextdoc4j-demo-web
 │   ├── nextdoc4j-demo-web-sb3
 │   └── nextdoc4j-demo-web-sb4
 ├── nextdoc4j-demo-springboot
 │   ├── nextdoc4j-demo-springboot3
 │   └── nextdoc4j-demo-springboot4
+├── nextdoc4j-demo-modules
+│   ├── nextdoc4j-demo-modules-user
+│   │   ├── nextdoc4j-demo-modules-user-sb3
+│   │   └── nextdoc4j-demo-modules-user-sb4
+│   ├── nextdoc4j-demo-modules-system
+│   │   ├── nextdoc4j-demo-modules-system-sb3
+│   │   └── nextdoc4j-demo-modules-system-sb4
+│   └── nextdoc4j-demo-modules-file
+│       ├── nextdoc4j-demo-modules-file-sb3
+│       └── nextdoc4j-demo-modules-file-sb4
 └── nextdoc4j-demo-gateway
-    ├── nextdoc4j-demo-gateway-springboot3
-    ├── nextdoc4j-demo-gateway-springboot4
-    └── nextdoc4j-demo-modules
-        ├── nextdoc4j-demo-modules-user
-        │   ├── nextdoc4j-demo-modules-user-sb3
-        │   └── nextdoc4j-demo-modules-user-sb4
-        └── nextdoc4j-demo-modules-file
-            ├── nextdoc4j-demo-modules-file-sb3
-            └── nextdoc4j-demo-modules-file-sb4
+    ├── nextdoc4j-demo-gateway-webflux
+    │   ├── nextdoc4j-demo-gateway-webflux-springboot3
+    │   └── nextdoc4j-demo-gateway-webflux-springboot4
+    └── nextdoc4j-demo-gateway-webmvc
+        ├── nextdoc4j-demo-gateway-webmvc-springboot3
+        └── nextdoc4j-demo-gateway-webmvc-springboot4
 ```
 
 ## 📦 模块说明
@@ -59,13 +70,17 @@ nextdoc4j-demo
 - `nextdoc4j-demo-bom-sb3`: SB3 依赖对齐 BOM
 - `nextdoc4j-demo-bom-sb4`: SB4 依赖对齐 BOM
 - `nextdoc4j-demo-core`: 共享模型与基础能力（不绑定 SB3/SB4）
+- `nextdoc4j-demo-controller-*`: 共享业务控制器层，按用户/系统/文件拆分
 - `nextdoc4j-demo-web-sb3`: SB3 Web 公共配置
 - `nextdoc4j-demo-web-sb4`: SB4 Web 公共配置
 - `nextdoc4j-demo-springboot3`: SB3 单体演示服务
 - `nextdoc4j-demo-springboot4`: SB4 单体演示服务
-- `nextdoc4j-demo-gateway-springboot3`: SB3 网关服务
-- `nextdoc4j-demo-gateway-springboot4`: SB4 网关服务
+- `nextdoc4j-demo-gateway-webflux-springboot3`: SB3 网关 WebFlux 服务
+- `nextdoc4j-demo-gateway-webflux-springboot4`: SB4 网关 WebFlux 服务
+- `nextdoc4j-demo-gateway-webmvc-springboot3`: SB3 网关 WebMvc 服务
+- `nextdoc4j-demo-gateway-webmvc-springboot4`: SB4 网关 WebMvc 服务
 - `nextdoc4j-demo-modules-user-sb3/sb4`: 用户与角色服务
+- `nextdoc4j-demo-modules-system-sb3/sb4`: 系统服务
 - `nextdoc4j-demo-modules-file-sb3/sb4`: 文件服务
 
 ## ✅ 环境要求
@@ -88,10 +103,14 @@ mvn clean compile -s /usr/local/maven/apache-maven-3.9.9/conf/nextdoc4j/settings
 
 - `nextdoc4j-demo-springboot3`: `Nextdoc4jDemoSb3Application`
 - `nextdoc4j-demo-springboot4`: `Nextdoc4jDemoSb4Application`
-- `nextdoc4j-demo-gateway-springboot3`: `GatewayServiceSb3Application`
-- `nextdoc4j-demo-gateway-springboot4`: `GatewayServiceSb4Application`
+- `nextdoc4j-demo-gateway-webflux-springboot3`: `GatewayServiceSb3Application`
+- `nextdoc4j-demo-gateway-webflux-springboot4`: `GatewayServiceSb4Application`
+- `nextdoc4j-demo-gateway-webmvc-springboot3`: `GatewayWebMvcServiceSb3Application`
+- `nextdoc4j-demo-gateway-webmvc-springboot4`: `GatewayWebMvcServiceSb4Application`
 - `nextdoc4j-demo-modules-user-sb3`: `UserServiceSb3Application`
 - `nextdoc4j-demo-modules-user-sb4`: `UserServiceSb4Application`
+- `nextdoc4j-demo-modules-system-sb3`: `SystemServiceSb3Application`
+- `nextdoc4j-demo-modules-system-sb4`: `SystemServiceSb4Application`
 - `nextdoc4j-demo-modules-file-sb3`: `FileServiceSb3Application`
 - `nextdoc4j-demo-modules-file-sb4`: `FileServiceSb4Application`
 
@@ -121,39 +140,57 @@ mvn -pl nextdoc4j-demo-springboot/nextdoc4j-demo-springboot4 spring-boot:run -Ds
 
 ### 网关微服务
 
-SB3 网关：
+SB3 网关 WebFlux：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-springboot3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webflux/nextdoc4j-demo-gateway-webflux-springboot3 spring-boot:run -DskipTests
 ```
 
-SB4 网关：
+SB4 网关 WebFlux：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-springboot4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webflux/nextdoc4j-demo-gateway-webflux-springboot4 spring-boot:run -DskipTests
+```
+
+SB3 网关 WebMvc：
+
+```bash
+mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webmvc-springboot3 spring-boot:run -DskipTests
+```
+
+SB4 网关 WebMvc：
+
+```bash
+mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webmvc-springboot4 spring-boot:run -DskipTests
 ```
 
 SB3 用户/文件服务：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb3 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-system/nextdoc4j-demo-modules-system-sb3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb3 spring-boot:run -DskipTests
 ```
 
 SB4 用户/文件服务：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb4 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-system/nextdoc4j-demo-modules-system-sb4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb4 spring-boot:run -DskipTests
 ```
 
 默认端口与服务名：
 
-- SB3 网关 `9000`，服务 `gateway-server-sb3`
+- SB3 网关 WebFlux `9000`，服务 `gateway-server-sb3`
+- SB3 网关 WebMvc `9001`，服务 `gateway-webmvc-server-sb3`
 - SB3 用户 `9002`，服务 `user-service-sb3`
+- SB3 系统 `9004`，服务 `system-service-sb3`
 - SB3 文件 `9003`，服务 `file-service-sb3`
-- SB4 网关 `9100`，服务 `gateway-server-sb4`
+- SB4 网关 WebFlux `9100`，服务 `gateway-server-sb4`
+- SB4 网关 WebMvc `9101`，服务 `gateway-webmvc-server-sb4`
 - SB4 用户 `9102`，服务 `user-service-sb4`
+- SB4 系统 `9104`，服务 `system-service-sb4`
 - SB4 文件 `9103`，服务 `file-service-sb4`
 
 > 说明：网关与微服务模块已内置 `spring-cloud-starter-alibaba-nacos-discovery` 和 `spring-cloud-starter-alibaba-nacos-config`。

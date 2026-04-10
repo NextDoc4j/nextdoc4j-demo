@@ -29,7 +29,17 @@
     <dependencies>
         <dependency>
             <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-demo-web-sb4</artifactId>
+            <artifactId>nextdoc4j-demo-controller-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>top.nextdoc4j</groupId>
+            <artifactId>nextdoc4j-demo-controller-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>top.nextdoc4j</groupId>
+            <artifactId>nextdoc4j-demo-controller-file</artifactId>
             <version>${project.version}</version>
         </dependency>
 

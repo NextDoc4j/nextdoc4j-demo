@@ -15,8 +15,9 @@
     <modules>
         <module>nextdoc4j-demo-build</module>
         <module>nextdoc4j-demo-core</module>
-        <module>nextdoc4j-demo-web</module>
+        <module>nextdoc4j-demo-controller</module>
         <module>nextdoc4j-demo-springboot</module>
+        <module>nextdoc4j-demo-modules</module>
         <module>nextdoc4j-demo-gateway</module>
     </modules>
 
