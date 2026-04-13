@@ -7,7 +7,9 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.core.annotation.ApiError;
 import top.nextdoc4j.demo.core.enums.ResultCode;
@@ -18,7 +20,9 @@ import top.nextdoc4j.demo.core.model.query.RoleQuery;
 import top.nextdoc4j.demo.core.model.req.RolePermissionReq;
 import top.nextdoc4j.demo.core.model.req.RoleReq;
 import top.nextdoc4j.demo.core.model.req.RoleUpdateReq;
+import top.nextdoc4j.demo.core.model.req.UpdateMenusReq;
 import top.nextdoc4j.demo.core.model.resp.PermissionResp;
+import top.nextdoc4j.demo.core.model.resp.RoleDetailResp;
 import top.nextdoc4j.demo.core.model.resp.RoleResp;
 
 import java.time.LocalDateTime;
@@ -30,6 +34,7 @@ import java.util.List;
  * @author echo
  * @since 2025/09/15
  */
+@Slf4j
 @Tag(name = "角色管理")
 @RestController
 @RequiredArgsConstructor
@@ -246,5 +251,25 @@ public class RoleController {
         role.setUpdateTime(LocalDateTime.now());
 
         return R.ok(role);
+    }
+
+
+
+    /**
+     * 更新角色菜单权限
+     */
+    @Operation(summary = "更新角色菜单权限")
+    @PutMapping("/menus-update")
+    public void updateMenus(@RequestBody @Valid UpdateMenusReq request) {
+        log.info("更新角色菜单权限: {}", request);
+    }
+
+    /**
+     * 获取角色详细信息列表
+     */
+    @Operation(summary = "获取角色详细信息列表")
+    @GetMapping("/list-detail")
+    public List<RoleDetailResp> getRoleList() {
+        return List.of(RoleDetailResp.builder().name("role_1").code("ROLE_1").description("角色1的描述").build()) ;
     }
 }
