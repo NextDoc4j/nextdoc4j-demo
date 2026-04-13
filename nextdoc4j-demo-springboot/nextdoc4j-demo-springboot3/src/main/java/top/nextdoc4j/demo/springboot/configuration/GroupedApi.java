@@ -61,6 +61,16 @@ public class GroupedApi {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi otherApi() {
+        return GroupedOpenApi.builder()
+                .group("logs")
+                .displayName("操作日志管理 API")
+                .packagesToScan("top.nextdoc4j.demo.controller.system.log")
+                .addOpenApiCustomizer(getCustomizer("操作日志管理"))
+                .build();
+    }
+
     /**
      * 获取自定义配置器
      */

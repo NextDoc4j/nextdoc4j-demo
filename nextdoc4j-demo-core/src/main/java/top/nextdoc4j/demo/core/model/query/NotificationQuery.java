@@ -1,6 +1,7 @@
 package top.nextdoc4j.demo.core.model.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -13,6 +14,7 @@ import lombok.Data;
 public class NotificationQuery {
 
     @Schema(description = "通知标题，支持模糊查询", example = "系统")
+    @NotNull
     private String title;
 
     @Schema(description = "通知类型", example = "SYSTEM",

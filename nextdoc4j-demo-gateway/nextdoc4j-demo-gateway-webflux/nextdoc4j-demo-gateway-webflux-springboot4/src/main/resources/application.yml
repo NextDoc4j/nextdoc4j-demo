@@ -28,9 +28,9 @@ spring:
   cloud:
     nacos:
       # Nacos HTTP 服务端地址
-      server-addr: 192.168.10.10:60008
+      server-addr: 192.168.10.41:50061
       username: nacos
-      password: nacos
+      password: bdca2431
       # 配置中心
       config:
         enabled: true
