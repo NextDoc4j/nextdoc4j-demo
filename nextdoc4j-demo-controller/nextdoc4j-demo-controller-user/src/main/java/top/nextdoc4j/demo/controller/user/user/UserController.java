@@ -8,6 +8,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +41,11 @@ import java.util.concurrent.TimeUnit;
  * @author echo
  * @date 2025/09/16
  */
-@Tag(name = "用户管理")
+@Tag(
+        name = "用户管理",
+        description = "用户管理相关接口",
+        extensions = @Extension(properties = @ExtensionProperty(name = "x-order", value = "2"))
+)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")

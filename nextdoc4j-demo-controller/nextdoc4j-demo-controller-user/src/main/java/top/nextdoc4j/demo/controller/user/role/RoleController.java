@@ -6,6 +6,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +37,18 @@ import java.util.List;
  * @since 2025/09/15
  */
 @Slf4j
-@Tag(name = "角色管理")
+@Tag(
+        name = "角色管理",
+        description = "角色管理相关接口",
+        extensions = @Extension(properties = @ExtensionProperty(name = "x-order", value = "1"))
+)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/role")
 public class RoleController {
 
-    @Operation(summary = "新增角色", description = "创建一个新的系统角色")
+    @Operation(summary = "新增角色", description = "创建一个新的系统角色",
+            extensions = @Extension(properties = @ExtensionProperty(name = "x-order", value = "1")))
     @PostMapping
     public R<RoleResp> createRole(@RequestBody RoleReq roleReq) {
         RoleResp roleResp = BeanUtil.copyProperties(roleReq, RoleResp.class);
@@ -254,7 +261,6 @@ public class RoleController {
     }
 
 
-
     /**
      * 更新角色菜单权限
      */
@@ -270,6 +276,6 @@ public class RoleController {
     @Operation(summary = "获取角色详细信息列表")
     @GetMapping("/list-detail")
     public List<RoleDetailResp> getRoleList() {
-        return List.of(RoleDetailResp.builder().name("role_1").code("ROLE_1").description("角色1的描述").build()) ;
+        return List.of(RoleDetailResp.builder().name("role_1").code("ROLE_1").description("角色1的描述").build());
     }
 }
