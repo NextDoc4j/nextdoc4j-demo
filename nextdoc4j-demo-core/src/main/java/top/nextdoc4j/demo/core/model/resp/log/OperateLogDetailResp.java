@@ -3,6 +3,7 @@ package top.nextdoc4j.demo.core.model.resp.log;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import top.nextdoc4j.demo.core.model.query.NotificationQuery;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Schema(
         description = "操作日志详情",
-        allOf = {OperateLogSimpleResp.class}
+        allOf = {NotificationQuery.class}
 )
 public class OperateLogDetailResp extends OperateLogSimpleResp {
 

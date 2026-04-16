@@ -1,9 +1,9 @@
 package top.nextdoc4j.demo.controller.system.log;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.nextdoc4j.demo.core.annotation.ApiError;
 import top.nextdoc4j.demo.core.model.base.PageResult;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/api/op-logs")
 public class OperateLogController {
 
-    @Operation(summary = "分页查询操作日志", description = "query: OperateLogPageQuery, resp: R<PageResult<OperateLogSimpleResp>>")
+    @Operation(summary = "分页查询操作日志", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "查询参数不合法")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
     @GetMapping("/page")
@@ -39,7 +39,7 @@ public class OperateLogController {
         return R.ok(result);
     }
 
-    @Operation(summary = "查询日志详情", description = "query: path id, resp: R<OperateLogDetailResp>")
+    @Operation(summary = "查询日志详情", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "日志ID不合法")
     @ApiError(code = "oplog.not.found", status = 404, reason = "操作日志不存在")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
@@ -50,13 +50,13 @@ public class OperateLogController {
         return R.ok(resp);
     }
 
-    @Operation(summary = "补录操作日志", description = "req: OperateLogSaveReq, resp: R<OperateLogDetailResp>")
+    @Operation(summary = "补录操作日志", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "请求参数不合法")
     @ApiError(code = "content.type.invalid", status = 400, reason = "日志内容类型不支持")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
     @ApiError(code = "server.error", status = 500, reason = "服务器内部错误")
     @PostMapping
-    public R<OperateLogDetailResp> save(@Valid @RequestBody OperateLogSaveReq req) {
+    public R<OperateLogDetailResp> save(@Validated @RequestBody OperateLogSaveReq req) {
         OperateLogDetailResp resp = new OperateLogDetailResp();
         resp.setModule(req.getModule());
         resp.setBizType(req.getBizType());
@@ -80,7 +80,7 @@ public class OperateLogController {
         return R.ok(resp);
     }
 
-    @Operation(summary = "标记日志", description = "req: OperateLogMarkReq, resp: R<Void>")
+    @Operation(summary = "标记日志", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "请求参数不合法")
     @ApiError(code = "oplog.not.found", status = 404, reason = "部分日志不存在")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
@@ -106,7 +106,7 @@ public class OperateLogController {
         return R.ok(resp);
     }
 
-    @Operation(summary = "查询日志时间线", description = "query: OperateLogTimelineQuery, resp: R<List<OperateLogTimelineResp>>")
+    @Operation(summary = "查询日志时间线", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "查询参数不合法")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
     @GetMapping("/timeline")
@@ -114,7 +114,7 @@ public class OperateLogController {
         return R.ok(Collections.emptyList());
     }
 
-    @Operation(summary = "日志统计分析", description = "query: OperateLogAnalysisQuery, resp: R<OperateLogAnalysisResp>")
+    @Operation(summary = "日志统计分析", description = "")
     @ApiError(code = "param.invalid", status = 400, reason = "查询参数不合法")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
     @ApiError(code = "server.error", status = -1, reason = "未知服务器错误")

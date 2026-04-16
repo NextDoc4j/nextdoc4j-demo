@@ -1,11 +1,13 @@
 package top.nextdoc4j.demo.springboot.configuration;
 
+import io.swagger.v3.core.converter.AnnotatedType;
+import io.swagger.v3.core.converter.ModelConverters;
+import io.swagger.v3.core.converter.ResolvedSchema;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import top.nextdoc4j.demo.core.annotation.ApiError;
+import top.nextdoc4j.demo.core.model.base.R;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -22,37 +25,19 @@ import java.util.stream.Collectors;
 @Configuration(proxyBeanMethods = false)
 public class GlobalOpenApiAutoConfiguration {
 
-    public static final String API_ERROR_RESPONSE_NAME = "ApiErrorResponse";
-    private static final String DEFAULT_MEDIA_TYPE = "application/json";
+    public static final String API_ERROR_RESPONSE_NAME = "RVoid";
 
-    /**
-     * 扩展属性 key，用于在 operation 中存储需要提升的 examples
-     */
     private static final String X_PENDING_EXAMPLES = "x-pending-examples";
 
-    /**
-     * 定义全局错误响应 Schema 模型
-     */
     public static final Schema<?> API_ERROR_RESPONSE;
 
     static {
-        Schema<Object> schema = new Schema<>();
-        schema.setName(API_ERROR_RESPONSE_NAME);
-        schema.setDescription("通用错误响应模型，用于 4xx 和 5xx 错误");
-        schema.setType("object");
-        schema.addProperty("code", new StringSchema()
-                .title("业务错误码")
-                .description("场景 code 码/业务 code 码，可以追溯具体原因"));
-        schema.addProperty("message", new StringSchema()
-                .title("错误消息")
-                .description("人类可读的错误描述"));
-        API_ERROR_RESPONSE = schema;
+        ResolvedSchema resolvedSchema = ModelConverters.getInstance()
+                .resolveAsResolvedSchema(new AnnotatedType(R.class));
+        API_ERROR_RESPONSE = resolvedSchema.schema;
+        API_ERROR_RESPONSE.setName(API_ERROR_RESPONSE_NAME);
     }
 
-    /**
-     * 阶段 2：全局定制器
-     * 在所有接口处理完成后，统一注册 Schema 和公共 Examples
-     */
     @Bean
     public GlobalOpenApiCustomizer globalOpenApiCustomizer() {
         return openApi -> {
@@ -82,7 +67,6 @@ public class GlobalOpenApiAutoConfiguration {
                             if (pending != null) {
                                 examplesToRegister.putAll(pending);
                             }
-                            // 清理扩展属性，不输出到最终文档
                             extensions.remove(X_PENDING_EXAMPLES);
                         }
                     });
@@ -99,10 +83,6 @@ public class GlobalOpenApiAutoConfiguration {
         };
     }
 
-    /**
-     * 阶段 1：操作定制器
-     * 扫描方法上的 @ApiError 注解，构建 ApiResponse 并挂载到 operation 上
-     */
     @Bean
     public GlobalOperationCustomizer apiErrorOperationCustomizer() {
         return (operation, handlerMethod) -> {
@@ -121,10 +101,8 @@ public class GlobalOpenApiAutoConfiguration {
             }
             final ApiResponses finalResponses = responses;
 
-            // 用于收集需要提升到 components/examples 的 examples
             Map<String, Example> pendingExamples = new LinkedHashMap<>();
 
-            // 按状态码分组
             Map<Integer, List<ApiError>> groups = apiErrors.stream()
                     .sorted(Comparator.comparingInt(ApiError::status)
                             .thenComparing(ApiError::code))
@@ -135,7 +113,6 @@ public class GlobalOpenApiAutoConfiguration {
 
             groups.forEach((status, errors) -> {
                 String statusKey = status == -1 ? "default" : String.valueOf(status);
-                // 如果已存在手动定义的响应（如 @ApiResponse），则不覆盖
                 if (finalResponses.containsKey(statusKey)) {
                     return;
                 }
@@ -147,7 +124,6 @@ public class GlobalOpenApiAutoConfiguration {
                 finalResponses.addApiResponse(statusKey, response);
             });
 
-            // 将 pending examples 存储到 operation 的扩展属性中
             if (!pendingExamples.isEmpty()) {
                 operation.addExtension(X_PENDING_EXAMPLES, pendingExamples);
             }
@@ -156,18 +132,11 @@ public class GlobalOpenApiAutoConfiguration {
         };
     }
 
-    // -------------------------------------------------------------------------
-    // 构建方法
-    // -------------------------------------------------------------------------
-
-    /**
-     * 构建单个错误的响应
-     */
     private ApiResponse buildSingleResponse(ApiError err, Map<String, Example> pendingExamples) {
         ApiResponse response = new ApiResponse().description(resolveDescription(err));
 
         if (err.bareContent()) {
-            return response; // 场景 4：裸响应
+            return response;
         }
 
         MediaType mediaType = new MediaType().schema(new Schema<>().$ref(schemaRef()));
@@ -175,9 +144,7 @@ public class GlobalOpenApiAutoConfiguration {
         Example example = buildExample(err);
 
         if (err.refExample()) {
-            // 存储到 pendingExamples，稍后由 GlobalOpenApiCustomizer 提取
             pendingExamples.put(key, example);
-            // 在 response 中使用 $ref 引用
             mediaType.addExamples(key, new Example().$ref(componentsExampleRef(key)));
         } else {
             mediaType.addExamples(key, example);
@@ -186,9 +153,6 @@ public class GlobalOpenApiAutoConfiguration {
         return response.content(new Content().addMediaType(err.mediaType(), mediaType));
     }
 
-    /**
-     * 构建同一状态码下多个错误的响应（生成 examples 下拉列表）
-     */
     private ApiResponse buildMultiResponse(List<ApiError> errors, Map<String, Example> pendingExamples) {
         String description = errors.stream()
                 .map(this::resolveDescription)
@@ -217,28 +181,17 @@ public class GlobalOpenApiAutoConfiguration {
                 .content(new Content().addMediaType(errors.get(0).mediaType(), mediaType));
     }
 
-    // -------------------------------------------------------------------------
-    // 工具方法
-    // -------------------------------------------------------------------------
-
     private String resolveDescription(ApiError err) {
         return err.reason().isBlank()
                 ? "HTTP " + (err.status() == -1 ? "default" : err.status()) + " 错误响应"
                 : err.reason();
     }
 
-    private Map<String, Object> buildExampleValue(ApiError err) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put("code", err.code());
-        // 场景 7：支持 reason 与 message 分离
-        map.put("message", err.message().isBlank() ? err.reason() : err.message());
-        return map;
-    }
-
     private Example buildExample(ApiError err) {
+        String msg = err.message().isBlank() ? err.reason() : err.message();
         return new Example()
                 .summary(err.reason().isBlank() ? err.code() : err.reason())
-                .value(buildExampleValue(err));
+                .value(R.fail(err.code(), msg));
     }
 
     private String buildExampleKey(ApiError err) {
