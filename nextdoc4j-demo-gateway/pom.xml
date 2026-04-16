@@ -13,12 +13,11 @@
     <artifactId>nextdoc4j-demo-gateway</artifactId>
     <packaging>pom</packaging>
     <name>nextdoc4j-demo-gateway</name>
-    <description>网关与微服务架构聚合模块（SB3/SB4 双轨）</description>
+    <description>网关聚合模块（按 WebFlux / WebMvc 分层）</description>
 
     <modules>
-        <module>nextdoc4j-demo-gateway-springboot3</module>
-        <module>nextdoc4j-demo-gateway-springboot4</module>
-        <module>nextdoc4j-demo-modules</module>
+        <module>nextdoc4j-demo-gateway-webflux</module>
+        <module>nextdoc4j-demo-gateway-webmvc</module>
     </modules>
 
 </project>
