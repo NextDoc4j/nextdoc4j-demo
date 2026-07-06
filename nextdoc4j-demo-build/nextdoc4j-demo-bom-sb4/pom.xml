@@ -16,11 +16,20 @@
     <description>Spring Boot 4 技术栈依赖对齐 BOM（Spring Boot 4 / Spring Cloud / nextdoc4j-sb4）</description>
 
     <properties>
+        <spring-boot.version>4.1.0</spring-boot.version>
+        <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
         <spring-cloud-alibaba.version>2025.1.0.0</spring-cloud-alibaba.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
                 <artifactId>nextdoc4j-bom-springboot4</artifactId>
@@ -43,47 +52,47 @@
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-controller-user</artifactId>
+                <artifactId>nextdoc4j-demo-api-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-controller-system</artifactId>
+                <artifactId>nextdoc4j-demo-api-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-controller-file</artifactId>
+                <artifactId>nextdoc4j-demo-api-file</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-springboot4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-monolith</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-gateway-webflux-springboot4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-gateway-webflux</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-gateway-webmvc-springboot4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-gateway-webmvc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-modules-user-sb4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-service-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-modules-file-sb4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-service-file</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-demo-modules-system-sb4</artifactId>
+                <artifactId>nextdoc4j-demo-boot4-service-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -99,10 +108,30 @@
             </dependency>
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

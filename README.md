@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./nextdoc4j-demo-springboot/nextdoc4j-demo-springboot3/src/main/resources/favicon.ico" alt="Nextdoc4j Logo" width="180">
+  <img src="./nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-monolith/src/main/resources/favicon.ico" alt="Nextdoc4j Logo" width="180">
 </p>
 
 <h1 align="center">Nextdoc4j Demo</h1>
@@ -23,7 +23,7 @@
 - Spring Boot 3 与 Spring Boot 4 双版本隔离
 - 单体服务模式
 - 网关 + 微服务模式
-- 统一的模型层、controller 层复用与分版本 Web 公共配置
+- 统一的模型层、API 层复用，按 Boot 主版本隔离运行模块
 
 > 本项目以演示和参考为主，不建议直接用于生产环境。
 
@@ -35,33 +35,24 @@ nextdoc4j-demo
 │   ├── nextdoc4j-demo-bom-sb3
 │   └── nextdoc4j-demo-bom-sb4
 ├── nextdoc4j-demo-core
-├── nextdoc4j-demo-controller
-│   ├── nextdoc4j-demo-controller-user
-│   ├── nextdoc4j-demo-controller-system
-│   └── nextdoc4j-demo-controller-file
-├── nextdoc4j-demo-web
-│   ├── nextdoc4j-demo-web-sb3
-│   └── nextdoc4j-demo-web-sb4
-├── nextdoc4j-demo-springboot
-│   ├── nextdoc4j-demo-springboot3
-│   └── nextdoc4j-demo-springboot4
-├── nextdoc4j-demo-modules
-│   ├── nextdoc4j-demo-modules-user
-│   │   ├── nextdoc4j-demo-modules-user-sb3
-│   │   └── nextdoc4j-demo-modules-user-sb4
-│   ├── nextdoc4j-demo-modules-system
-│   │   ├── nextdoc4j-demo-modules-system-sb3
-│   │   └── nextdoc4j-demo-modules-system-sb4
-│   └── nextdoc4j-demo-modules-file
-│       ├── nextdoc4j-demo-modules-file-sb3
-│       └── nextdoc4j-demo-modules-file-sb4
-└── nextdoc4j-demo-gateway
-    ├── nextdoc4j-demo-gateway-webflux
-    │   ├── nextdoc4j-demo-gateway-webflux-springboot3
-    │   └── nextdoc4j-demo-gateway-webflux-springboot4
-    └── nextdoc4j-demo-gateway-webmvc
-        ├── nextdoc4j-demo-gateway-webmvc-springboot3
-        └── nextdoc4j-demo-gateway-webmvc-springboot4
+├── nextdoc4j-demo-api
+│   ├── nextdoc4j-demo-api-user
+│   ├── nextdoc4j-demo-api-system
+│   └── nextdoc4j-demo-api-file
+├── nextdoc4j-demo-boot3
+│   ├── nextdoc4j-demo-boot3-monolith
+│   ├── nextdoc4j-demo-boot3-service-user
+│   ├── nextdoc4j-demo-boot3-service-system
+│   ├── nextdoc4j-demo-boot3-service-file
+│   ├── nextdoc4j-demo-boot3-gateway-webflux
+│   └── nextdoc4j-demo-boot3-gateway-webmvc
+└── nextdoc4j-demo-boot4
+    ├── nextdoc4j-demo-boot4-monolith
+    ├── nextdoc4j-demo-boot4-service-user
+    ├── nextdoc4j-demo-boot4-service-system
+    ├── nextdoc4j-demo-boot4-service-file
+    ├── nextdoc4j-demo-boot4-gateway-webflux
+    └── nextdoc4j-demo-boot4-gateway-webmvc
 ```
 
 ## 📦 模块说明
@@ -70,18 +61,15 @@ nextdoc4j-demo
 - `nextdoc4j-demo-bom-sb3`: SB3 依赖对齐 BOM
 - `nextdoc4j-demo-bom-sb4`: SB4 依赖对齐 BOM
 - `nextdoc4j-demo-core`: 共享模型与基础能力（不绑定 SB3/SB4）
-- `nextdoc4j-demo-controller-*`: 共享业务控制器层，按用户/系统/文件拆分
-- `nextdoc4j-demo-web-sb3`: SB3 Web 公共配置
-- `nextdoc4j-demo-web-sb4`: SB4 Web 公共配置
-- `nextdoc4j-demo-springboot3`: SB3 单体演示服务
-- `nextdoc4j-demo-springboot4`: SB4 单体演示服务
-- `nextdoc4j-demo-gateway-webflux-springboot3`: SB3 网关 WebFlux 服务
-- `nextdoc4j-demo-gateway-webflux-springboot4`: SB4 网关 WebFlux 服务
-- `nextdoc4j-demo-gateway-webmvc-springboot3`: SB3 网关 WebMvc 服务
-- `nextdoc4j-demo-gateway-webmvc-springboot4`: SB4 网关 WebMvc 服务
-- `nextdoc4j-demo-modules-user-sb3/sb4`: 用户与角色服务
-- `nextdoc4j-demo-modules-system-sb3/sb4`: 系统服务
-- `nextdoc4j-demo-modules-file-sb3/sb4`: 文件服务
+- `nextdoc4j-demo-api-*`: 共享业务 API 层，按用户/系统/文件拆分
+- `nextdoc4j-demo-boot3`: Spring Boot 3 演示聚合层
+- `nextdoc4j-demo-boot3-monolith`: SB3 单体演示服务
+- `nextdoc4j-demo-boot3-service-user/system/file`: SB3 微服务业务模块
+- `nextdoc4j-demo-boot3-gateway-webflux/webmvc`: SB3 网关聚合服务
+- `nextdoc4j-demo-boot4`: Spring Boot 4 演示聚合层
+- `nextdoc4j-demo-boot4-monolith`: SB4 单体演示服务
+- `nextdoc4j-demo-boot4-service-user/system/file`: SB4 微服务业务模块
+- `nextdoc4j-demo-boot4-gateway-webflux/webmvc`: SB4 网关聚合服务
 
 ## ✅ 环境要求
 
@@ -101,31 +89,31 @@ mvn clean compile -s /usr/local/maven/apache-maven-3.9.9/conf/nextdoc4j/settings
 
 ### 启动类命名（SB3/SB4）
 
-- `nextdoc4j-demo-springboot3`: `Nextdoc4jDemoSb3Application`
-- `nextdoc4j-demo-springboot4`: `Nextdoc4jDemoSb4Application`
-- `nextdoc4j-demo-gateway-webflux-springboot3`: `GatewayServiceSb3Application`
-- `nextdoc4j-demo-gateway-webflux-springboot4`: `GatewayServiceSb4Application`
-- `nextdoc4j-demo-gateway-webmvc-springboot3`: `GatewayWebMvcServiceSb3Application`
-- `nextdoc4j-demo-gateway-webmvc-springboot4`: `GatewayWebMvcServiceSb4Application`
-- `nextdoc4j-demo-modules-user-sb3`: `UserServiceSb3Application`
-- `nextdoc4j-demo-modules-user-sb4`: `UserServiceSb4Application`
-- `nextdoc4j-demo-modules-system-sb3`: `SystemServiceSb3Application`
-- `nextdoc4j-demo-modules-system-sb4`: `SystemServiceSb4Application`
-- `nextdoc4j-demo-modules-file-sb3`: `FileServiceSb3Application`
-- `nextdoc4j-demo-modules-file-sb4`: `FileServiceSb4Application`
+- `nextdoc4j-demo-boot3-monolith`: `Nextdoc4jDemoSb3Application`
+- `nextdoc4j-demo-boot4-monolith`: `Nextdoc4jDemoSb4Application`
+- `nextdoc4j-demo-boot3-gateway-webflux`: `GatewayServiceSb3Application`
+- `nextdoc4j-demo-boot4-gateway-webflux`: `GatewayServiceSb4Application`
+- `nextdoc4j-demo-boot3-gateway-webmvc`: `GatewayWebMvcServiceSb3Application`
+- `nextdoc4j-demo-boot4-gateway-webmvc`: `GatewayWebMvcServiceSb4Application`
+- `nextdoc4j-demo-boot3-service-user`: `UserServiceSb3Application`
+- `nextdoc4j-demo-boot4-service-user`: `UserServiceSb4Application`
+- `nextdoc4j-demo-boot3-service-system`: `SystemServiceSb3Application`
+- `nextdoc4j-demo-boot4-service-system`: `SystemServiceSb4Application`
+- `nextdoc4j-demo-boot3-service-file`: `FileServiceSb3Application`
+- `nextdoc4j-demo-boot4-service-file`: `FileServiceSb4Application`
 
 ### 单体服务
 
 SB3 单体：
 
 ```bash
-mvn -pl nextdoc4j-demo-springboot/nextdoc4j-demo-springboot3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-monolith spring-boot:run -DskipTests
 ```
 
 SB4 单体：
 
 ```bash
-mvn -pl nextdoc4j-demo-springboot/nextdoc4j-demo-springboot4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-monolith spring-boot:run -DskipTests
 ```
 
 默认端口：
@@ -143,41 +131,41 @@ mvn -pl nextdoc4j-demo-springboot/nextdoc4j-demo-springboot4 spring-boot:run -Ds
 SB3 网关 WebFlux：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webflux/nextdoc4j-demo-gateway-webflux-springboot3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-gateway-webflux spring-boot:run -DskipTests
 ```
 
 SB4 网关 WebFlux：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webflux/nextdoc4j-demo-gateway-webflux-springboot4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-gateway-webflux spring-boot:run -DskipTests
 ```
 
 SB3 网关 WebMvc：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webmvc-springboot3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-gateway-webmvc spring-boot:run -DskipTests
 ```
 
 SB4 网关 WebMvc：
 
 ```bash
-mvn -pl nextdoc4j-demo-gateway/nextdoc4j-demo-gateway-webmvc-springboot4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-gateway-webmvc spring-boot:run -DskipTests
 ```
 
 SB3 用户/文件服务：
 
 ```bash
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb3 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-system/nextdoc4j-demo-modules-system-sb3 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb3 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-service-user spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-service-system spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot3/nextdoc4j-demo-boot3-service-file spring-boot:run -DskipTests
 ```
 
 SB4 用户/文件服务：
 
 ```bash
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-user/nextdoc4j-demo-modules-user-sb4 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-system/nextdoc4j-demo-modules-system-sb4 spring-boot:run -DskipTests
-mvn -pl nextdoc4j-demo-modules/nextdoc4j-demo-modules-file/nextdoc4j-demo-modules-file-sb4 spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-service-user spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-service-system spring-boot:run -DskipTests
+mvn -pl nextdoc4j-demo-boot4/nextdoc4j-demo-boot4-service-file spring-boot:run -DskipTests
 ```
 
 默认端口与服务名：

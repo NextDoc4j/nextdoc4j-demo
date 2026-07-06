@@ -15,15 +15,14 @@
     <modules>
         <module>nextdoc4j-demo-build</module>
         <module>nextdoc4j-demo-core</module>
-        <module>nextdoc4j-demo-controller</module>
-        <module>nextdoc4j-demo-springboot</module>
-        <module>nextdoc4j-demo-modules</module>
-        <module>nextdoc4j-demo-gateway</module>
+        <module>nextdoc4j-demo-api</module>
+        <module>nextdoc4j-demo-boot3</module>
+        <module>nextdoc4j-demo-boot4</module>
     </modules>
 
     <properties>
         <revision>1.3.2-SNAPSHOT</revision>
-        <nextdoc4j.version>1.3.2-SNAPSHOT</nextdoc4j.version>
+        <nextdoc4j.version>1.3.3-SNAPSHOT</nextdoc4j.version>
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -33,7 +32,7 @@
 
         <lombok.version>1.18.42</lombok.version>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
-        <swagger.version>2.2.45</swagger.version>
+        <swagger.version>2.2.51</swagger.version>
 
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     </properties>

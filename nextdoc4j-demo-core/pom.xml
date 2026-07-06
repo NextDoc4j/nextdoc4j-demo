@@ -15,12 +15,6 @@
     <description>纯共享核心模型模块（不绑定 Spring Boot 版本）</description>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>3.5.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>top.nextdoc4j</groupId>
             <artifactId>nextdoc4j-plugin-enum-core</artifactId>
             <version>${nextdoc4j.version}</version>
@@ -33,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
             <version>${swagger.version}</version>
         </dependency>
 
