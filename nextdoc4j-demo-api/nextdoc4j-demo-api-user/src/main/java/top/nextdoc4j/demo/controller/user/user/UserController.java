@@ -52,8 +52,6 @@ import java.util.concurrent.TimeUnit;
 public class UserController {
 
 
-    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
-
     @ApiError(code = "error", status = 400, reason = "测试错误")
     @ApiError(code = "username.exist", status = 409, reason = "用户名已存在")
     @SaCheckPermission(value = {"user-add", "user-all", "user-delete"}, mode = SaMode.OR, orRole = "admin")
@@ -287,38 +285,7 @@ public class UserController {
         return R.ok(null);
     }
 
-    @Operation(summary = "用户数据 SSE 推送", description = "实时推送用户数据变更，使用 Server-Sent Events")
-    @GetMapping(value = "/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter streamUsers() {
-        SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
 
-        executor.schedule(() -> {
-            try {
-                for (int i = 1; i <= 5; i++) {
-                    UserResp user = new UserResp();
-                    user.setId((long) i);
-                    user.setUsername("sse_user_" + i);
-                    user.setEmail("sse_user" + i + "@nextdoc4j.top");
-                    user.setAge(RandomUtil.randomInt(18, 65));
-                    user.setStatus(StatusType.ACTIVE);
-                    user.setCreateTime(LocalDateTime.now());
-                    user.setUpdateTime(LocalDateTime.now());
-
-                    emitter.send(SseEmitter.event()
-                            .id(String.valueOf(i))
-                            .name("user-data")
-                            .data(user));
-
-                    Thread.sleep(1000);
-                }
-                emitter.complete();
-            } catch (IOException | InterruptedException e) {
-                emitter.completeWithError(e);
-            }
-        }, 0, TimeUnit.SECONDS);
-
-        return emitter;
-    }
 
     @Operation(summary = "导出用户数据", description = "导出用户数据为 CSV 文件")
     @GetMapping("/export")
