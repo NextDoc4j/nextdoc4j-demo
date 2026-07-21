@@ -18,6 +18,8 @@
     <properties>
         <spring-boot.version>3.5.14</spring-boot.version>
         <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
+        <spring-cloud.version>2025.0.3</spring-cloud.version>
+        <springdoc.version>2.8.17</springdoc.version>
         <spring-cloud-alibaba.version>2025.0.0.0</spring-cloud-alibaba.version>
     </properties>
 
@@ -31,9 +33,16 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>top.nextdoc4j</groupId>
-                <artifactId>nextdoc4j-bom-springboot3</artifactId>
-                <version>${nextdoc4j.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-bom</artifactId>
+                <version>${springdoc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -41,6 +50,13 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-bom</artifactId>
+                <version>${nextdoc4j.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -68,6 +84,11 @@
             <dependency>
                 <groupId>top.nextdoc4j</groupId>
                 <artifactId>nextdoc4j-demo-boot3-monolith</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.nextdoc4j</groupId>
+                <artifactId>nextdoc4j-demo-boot3-monolith-webflux</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

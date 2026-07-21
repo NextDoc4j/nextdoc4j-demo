@@ -56,7 +56,11 @@
 
         <dependency>
             <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-springboot3-gateway-webmvc-starter</artifactId>
+            <artifactId>nextdoc4j-gateway-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>

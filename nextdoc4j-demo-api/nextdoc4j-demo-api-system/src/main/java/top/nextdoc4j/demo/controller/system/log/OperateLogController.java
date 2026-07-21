@@ -80,7 +80,7 @@ public class OperateLogController {
         return R.ok(resp);
     }
 
-    @Operation(summary = "标记日志", description = "")
+    @Operation(summary = "标记日志", description = "body 参数")
     @ApiError(code = "param.invalid", status = 400, reason = "请求参数不合法")
     @ApiError(code = "oplog.not.found", status = 404, reason = "部分日志不存在")
     @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
@@ -88,6 +88,16 @@ public class OperateLogController {
     public R<Void> mark(@Valid @RequestBody OperateLogMarkReq req) {
         return R.ok(null);
     }
+
+    @Operation(summary = "标记日志", description = "query 参数")
+    @ApiError(code = "param.invalid", status = 400, reason = "请求参数不合法")
+    @ApiError(code = "oplog.not.found", status = 404, reason = "部分日志不存在")
+    @ApiError(code = "forbidden", status = 403, reason = "无权限", bareContent = true)
+    @PostMapping("/mark2")
+    public R<Void> mark2(@Valid  OperateLogMarkReq req) {
+        return R.ok(null);
+    }
+
 
     @Operation(summary = "重放请求", description = "req: OperateLogReplayReq, resp: R<OperateLogReplayResp>")
     @ApiError(code = "param.invalid", status = 400, reason = "请求参数不合法")

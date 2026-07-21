@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-plugin-security-satoken-springboot4</artifactId>
+            <artifactId>nextdoc4j-plugin-security-satoken</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.dev33</groupId>

@@ -27,6 +27,14 @@ public class OperateLogMarkReq {
     )
     private Object marker;
 
+
+    @Schema(
+            description = "重放目标，支持 HTTP 或 MQ",
+            discriminatorProperty = "targetType",
+            anyOf = {HttpReplayTargetReq.class, MqReplayTargetReq.class}
+    )
+    private Object replayTarget;
+
     @Schema(description = "是否加星", example = "true")
     private Boolean starred;
 

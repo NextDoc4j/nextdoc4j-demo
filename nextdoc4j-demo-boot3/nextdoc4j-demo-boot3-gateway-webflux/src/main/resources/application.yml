@@ -59,9 +59,9 @@ spring:
             - id: user-service-sb3
               uri: lb://user-service-sb3
               predicates:
-                - Path=/user/**,/role/**,/auth/**
+                - Path=/api/admin/**
               filters:
-                - StripPrefix=1
+                - StripPrefix=0
               metadata:
                 nextdoc4j:
                   name: 用户管理
@@ -147,3 +147,4 @@ nextdoc4j:
           paths:
             - /api/auth/login
             - /api/user/userAndRole
+  doc-path: /next.html

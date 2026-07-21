@@ -18,6 +18,7 @@
 
     <modules>
         <module>nextdoc4j-demo-boot4-monolith</module>
+        <module>nextdoc4j-demo-boot4-monolith-webflux</module>
         <module>nextdoc4j-demo-boot4-service-user</module>
         <module>nextdoc4j-demo-boot4-service-system</module>
         <module>nextdoc4j-demo-boot4-service-file</module>

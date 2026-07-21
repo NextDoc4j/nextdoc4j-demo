@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>top.nextdoc4j</groupId>
-            <artifactId>nextdoc4j-plugin-enum-core</artifactId>
+            <artifactId>nextdoc4j-plugin-enum</artifactId>
             <version>${nextdoc4j.version}</version>
         </dependency>
 
