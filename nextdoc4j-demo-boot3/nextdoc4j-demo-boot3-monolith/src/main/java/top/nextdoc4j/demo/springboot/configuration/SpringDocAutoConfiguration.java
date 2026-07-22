@@ -21,7 +21,7 @@ public class SpringDocAutoConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/META-INF/resources/");
     }
 
     @Bean
