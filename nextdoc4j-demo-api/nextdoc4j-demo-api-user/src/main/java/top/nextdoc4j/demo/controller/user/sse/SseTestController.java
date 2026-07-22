@@ -1,4 +1,4 @@
-package top.nextdoc4j.demo.controller.user.user;
+package top.nextdoc4j.demo.controller.user.sse;
 
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.v3.oas.annotations.Operation;

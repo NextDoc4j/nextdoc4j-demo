@@ -71,6 +71,16 @@ public class GroupedApi {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi sseApi() {
+        return GroupedOpenApi.builder()
+                .group("sse")
+                .displayName("SSE 消息管理 API")
+                .packagesToScan("top.nextdoc4j.demo.controller.user.sse")
+                .addOpenApiCustomizer(getCustomizer("SSE 消息管理相关接口"))
+                .build();
+    }
+
     /**
      * 获取自定义配置器
      */
