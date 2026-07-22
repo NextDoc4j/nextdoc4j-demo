@@ -109,7 +109,7 @@ nextdoc4j:
     # 全局认证 and sa-token 插件开关
     security:
       enabled: true
-  doc-path: /bdca.html
+#  doc-path: /bdca.html
 
 
 --- # 日志配置
