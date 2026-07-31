@@ -21,8 +21,8 @@
     </modules>
 
     <properties>
-        <revision>1.4.0</revision>
-        <nextdoc4j.version>1.4.0</nextdoc4j.version>
+        <revision>1.4.1</revision>
+        <nextdoc4j.version>1.4.1</nextdoc4j.version>
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.source>${java.version}</maven.compiler.source>
